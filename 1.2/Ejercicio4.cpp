@@ -1,6 +1,12 @@
 #include <iostream>
 using namespace std;
 
+/*
+Consigna:
+Se ingresa por teclado dos valores numéricos enteros diferentes entre sí, informar
+cuál es el mayor.
+*/
+
 int main()
 {
     int a;

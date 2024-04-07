@@ -1,14 +1,23 @@
 #include <iostream>
 using namespace std;
 
+/*
+Consigna:
+Se ingresa por teclado dos valores numéricos enteros, informar cuál es el mayor y
+cuál el menor. Si son iguales, entonces, mostrar un mensaje con el siguiente texto:
+“Los valores ingresados son iguales”.
+*/
+
 int main()
 {
     int a;
     int b;
     int mayor;
     int menor;
+
     cout << "Ingrese dos valores enteros: " << endl;
     cin >> a >> b;
+
     if (a > b)
     {
         mayor = a;
