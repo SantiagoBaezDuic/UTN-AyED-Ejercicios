@@ -101,6 +101,7 @@ int diasSegunMes(int mes, int anio) // Devuelve la cantidad de días segun mes t
         return 31;
         break;
     default:
+        return 0;
         break;
     }
 }
