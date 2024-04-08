@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
+#include <stdlib.h>
 using namespace std;
 
 /*
@@ -14,18 +15,37 @@ Se debe considerar los años bisiestos, entendiendo que un año es bisiesto si e
 divisible por 4, o por 400 pero no por 100.
 */
 
-int esBisiesto(int anio)
+/*
+A la hora de resolver este problema nos encontramos con distintos casos:
+-El día, mes y año ingresados son iguales al actual. -> la diferencia de días es 0.
+-El mes y año ingresados son iguales al actual. ->  hay que calcular la diferencia entre el día de inicio y el día final.
+-El año ingresado es igual al actual. -> hay que calcular el resto de días del mes de inicio, los días que pasaron del mes final, y los meses intermedios.
+-La fecha ingresada corresponde a un año distinto al actual. -> hay que calcular lo mismo que en el caso anterior y los años intermedios.
+*/
+
+int añoActual = 2024;
+int mesActual = 04;
+int diaActual = 07;
+
+int getCurrentDate() // Devuelve la fecha actual en las variables añoActual, mesActual y diaActual.
 {
-    if (anio % 4 == 0 || anio % 400 == 0)
+    const auto now = std::chrono::system_clock::now();
+    const std::time_t t_c = std::chrono::system_clock::to_time_t(now);
+    std::tm *now_tm = std::localtime(&t_c);
+
+    añoActual = now_tm->tm_year + 1900;
+    mesActual = now_tm->tm_mon + 1;
+    diaActual = now_tm->tm_mday;
+
+    cout << "El año actual es " << añoActual << " el mes actual es " << mesActual << " y el día actual es " << diaActual << "." << endl;
+    return 0;
+}
+
+int esBisiesto(int anio) // Evalúa si un año es bisiesto o no.
+{
+    if ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0))
     {
-        if (anio % 100 != 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return true;
     }
     else
     {
@@ -33,383 +53,224 @@ int esBisiesto(int anio)
     }
 }
 
-int añoActual = 2024;
-int mesActual = 04;
-int diaActual = 07;
-
-int contarCercania(int anio, int mes, int dia)
+int diasSegunMes(int mes, int anio) // Devuelve la cantidad de días segun mes teniendo en cuenta si el año es bisiesto o no.
 {
-    int tiempo = 0;
-
-    int añoInicio;
-    int mesInicio;
-    int diaInicio;
-    int añoFinal;
-    int mesFinal;
-    int diaFinal;
-
-    // Seteo el año de inicio y de final segun el año a evaluar sea anterior o posterior al actual
-    if (anio < añoActual)
+    switch (mes)
     {
-        añoInicio = anio;
-        mesInicio = mes;
-        diaInicio = dia;
-        añoFinal = añoActual;
-        mesFinal = mesActual;
-        diaFinal = diaActual;
-    }
-    else if (anio > añoActual)
-    {
-        añoInicio = añoActual;
-        mesInicio = mesActual;
-        diaInicio = diaActual;
-        añoFinal = anio;
-        mesFinal = mes;
-        diaFinal = dia;
-    }
-    else if (anio == añoActual)
-    {
-        if (mes < mesActual)
+    case 1:
+        return 31;
+        break;
+    case 2:
+        if (esBisiesto(anio))
         {
-            mesInicio = mes;
-            diaInicio = dia;
-            mesFinal = mesActual;
-            diaFinal = diaActual;
-        }
-        else if (mes > mesActual)
-        {
-            mesInicio = mesActual;
-            diaInicio = diaActual;
-            mesFinal = mes;
-            diaFinal = dia;
-        }
-        else if (mes == mesActual)
-        {
-            if (dia < diaActual)
-            {
-                diaInicio = dia;
-                diaFinal = diaActual;
-            }
-            else if (dia > diaActual)
-            {
-                diaInicio = diaActual;
-                diaFinal = dia;
-            }
-            else if (dia == diaActual)
-            {
-                return tiempo;
-            }
-        }
-    }
-
-    if (dia == diaActual && mes == mesActual && anio == añoActual)
-    {
-        tiempo = diaFinal;
-        return tiempo;
-    }
-    if (mes == mesActual && anio == añoActual)
-    {
-        tiempo = diaFinal - diaInicio;
-        return tiempo;
-    }
-    else
-    {
-        if (anio == añoActual)
-        {
-            // Sumo los días desde el día de inicio
-            switch (mesInicio)
-            {
-            case 1:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 2:
-                if (esBisiesto(añoInicio))
-                {
-                    tiempo = tiempo + 29 - diaInicio;
-                }
-                else
-                {
-                    tiempo = tiempo + 28 - diaInicio;
-                }
-                break;
-            case 3:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 4:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 5:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 6:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 7:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 8:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 9:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 10:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 11:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 12:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            default:
-                break;
-            }
-
-            // Sumo los días de los meses restantes del año
-            for (int i = mesInicio + 1; i < mesFinal; i++)
-            {
-                switch (i)
-                {
-                case 1:
-                    tiempo = tiempo + 31;
-                    break;
-                case 2:
-                    if (esBisiesto(añoInicio))
-                    {
-                        tiempo = tiempo + 29;
-                    }
-                    else
-                    {
-                        tiempo = tiempo + 28;
-                    }
-                    break;
-                case 3:
-                    tiempo = tiempo + 31;
-                    break;
-                case 4:
-                    tiempo = tiempo + 30;
-                    break;
-                case 5:
-                    tiempo = tiempo + 31;
-                    break;
-                case 6:
-                    tiempo = tiempo + 30;
-                    break;
-                case 7:
-                    tiempo = tiempo + 31;
-                    break;
-                case 8:
-                    tiempo = tiempo + 31;
-                    break;
-                case 9:
-                    tiempo = tiempo + 30;
-                    break;
-                case 10:
-                    tiempo = tiempo + 31;
-                    break;
-                case 11:
-                    tiempo = tiempo + 30;
-                    break;
-                case 12:
-                    tiempo = tiempo + 31;
-                    break;
-                default:
-                    break;
-                }
-            }
-
-            tiempo = tiempo + diaFinal;
+            return 29;
         }
         else
         {
-            // Sumo los días desde el día de inicio
-            switch (mesInicio)
+            return 28;
+        }
+        break;
+    case 3:
+        return 31;
+        break;
+    case 4:
+        return 30;
+        break;
+    case 5:
+        return 31;
+        break;
+    case 6:
+        return 30;
+        break;
+    case 7:
+        return 31;
+        break;
+    case 8:
+        return 31;
+        break;
+    case 9:
+        return 30;
+        break;
+    case 10:
+        return 31;
+        break;
+    case 11:
+        return 30;
+        break;
+    case 12:
+        return 31;
+        break;
+    default:
+        break;
+    }
+}
+
+int calcularMesIncompleto(int mes, int dia, int anio, string sentido) // Calcula según un string los días que pasaron o los días que restan del mes.
+{
+    int resultado = 0;
+    if (sentido == "resto")
+    {
+        resultado = resultado + diasSegunMes(mes, anio) - dia;
+    }
+    else
+    {
+        resultado = resultado + dia;
+    }
+    return resultado;
+}
+
+int calcularAnioIncompleto(int mes, int anio, string sentido) // Calcula según un string los meses que pasaron o los meses que restan del año
+{
+    int resultado = 0;
+    if (sentido == "resto")
+    {
+        for (int i = mes + 1; i < 13; i++)
+        {
+            resultado = resultado + diasSegunMes(i, anio);
+        }
+    }
+    else
+    {
+        for (int i = 1; i < mes; i++)
+        {
+            resultado = resultado + diasSegunMes(i, anio);
+        }
+    }
+    return resultado;
+}
+
+int calcularAniosCompletos(int anio) // Calcula los años entre la fecha ingresada y el año actual
+{
+    int resultado = 0;
+
+    if (anio > añoActual)
+    {
+        for (int i = añoActual + 1; i < anio; i++)
+        {
+            if (esBisiesto(i))
             {
-            case 1:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 2:
-                if (esBisiesto(añoInicio))
-                {
-                    tiempo = tiempo + 29 - diaInicio;
-                }
-                else
-                {
-                    tiempo = tiempo + 28 - diaInicio;
-                }
-                break;
-            case 3:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 4:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 5:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 6:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 7:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 8:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 9:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 10:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            case 11:
-                tiempo = tiempo + 30 - diaInicio;
-                break;
-            case 12:
-                tiempo = tiempo + 31 - diaInicio;
-                break;
-            default:
-                break;
+                resultado = resultado + 366;
+            }
+            else
+            {
+                resultado = resultado + 365;
+            }
+        }
+    }
+    else
+    {
+        for (int i = anio + 1; i < añoActual; i++)
+        {
+            if (esBisiesto(i))
+            {
+                resultado = resultado + 366;
+            }
+            else
+            {
+                resultado = resultado + 365;
+            }
+        }
+    }
+    return resultado;
+}
+
+int calcularDiferencia(int anio, int mes, int dia)
+{
+    int resultado = 0;
+
+    if (anio == añoActual && mes == mesActual && dia == diaActual)
+    {
+        return resultado;
+    }
+    else if (mes == mesActual && anio == añoActual)
+    {
+        // Calcular diferencia entre dia de inicio y final
+        resultado = abs(dia - diaActual);
+    }
+    else if (anio == añoActual)
+    {
+        if (mes > mesActual)
+        {
+            // Calcular el resto del mes de inicio
+            resultado = resultado + calcularMesIncompleto(mesActual, diaActual, añoActual, "resto");
+
+            // Calcular los meses intermedios
+            for (int i = mesActual + 1; i < mes; i++)
+            {
+                resultado = resultado + diasSegunMes(i, anio);
             }
 
-            // Sumo los dias de los meses restantes del año
-            for (int i = mesInicio + 1; i <= 12; i++)
+            // Calcular los dias pasados del mes final
+            resultado = resultado + calcularMesIncompleto(mes, dia, anio, "");
+        }
+        else
+        {
+            // Calcular el resto del mes de inicio
+            resultado = resultado + calcularMesIncompleto(mes, dia, anio, "resto");
+
+            // Calcular los meses intermedios
+            for (int i = mes + 1; i < mesActual; i++)
             {
-                switch (i)
-                {
-                case 1:
-                    tiempo = tiempo + 31;
-                    break;
-                case 2:
-                    if (esBisiesto(añoInicio))
-                    {
-                        tiempo = tiempo + 29;
-                    }
-                    else
-                    {
-                        tiempo = tiempo + 28;
-                    }
-                    break;
-                case 3:
-                    tiempo = tiempo + 31;
-                    break;
-                case 4:
-                    tiempo = tiempo + 30;
-                    break;
-                case 5:
-                    tiempo = tiempo + 31;
-                    break;
-                case 6:
-                    tiempo = tiempo + 30;
-                    break;
-                case 7:
-                    tiempo = tiempo + 31;
-                    break;
-                case 8:
-                    tiempo = tiempo + 31;
-                    break;
-                case 9:
-                    tiempo = tiempo + 30;
-                    break;
-                case 10:
-                    tiempo = tiempo + 31;
-                    break;
-                case 11:
-                    tiempo = tiempo + 30;
-                    break;
-                case 12:
-                    tiempo = tiempo + 31;
-                    break;
-                default:
-                    break;
-                }
+                resultado = resultado + diasSegunMes(i, anio);
             }
 
-            // Sumo los días de los años entre el de inicio y el final
-            if (anio != añoActual)
-            {
-                for (int i = añoInicio + 1; i < añoFinal; i++)
-                {
-                    if (esBisiesto(i))
-                    {
-                        tiempo = tiempo + 366;
-                    }
-                    else
-                    {
-                        tiempo = tiempo + 365;
-                    }
-                }
-            }
+            // Calcular los dias pasados del mes final
+            resultado = resultado + calcularMesIncompleto(mesActual, diaActual, añoActual, "");
+        }
+    }
+    else
+    {
+        if (anio < añoActual)
+        {
+            // Calcular el resto del mes de inicio
+            resultado = resultado + calcularMesIncompleto(mes, dia, anio, "resto"); // bien
 
-            // Sumo los días de los meses anteriores al mes final que están dentro del año final
-            for (int i = 1; i < mesFinal; i++)
-            {
-                switch (i)
-                {
-                case 1:
-                    tiempo = tiempo + 31;
-                    break;
-                case 2:
-                    if (esBisiesto(añoFinal))
-                    {
-                        tiempo = tiempo + 29;
-                    }
-                    else
-                    {
-                        tiempo = tiempo + 28;
-                    }
-                    break;
-                case 3:
-                    tiempo = tiempo + 31;
-                    break;
-                case 4:
-                    tiempo = tiempo + 30;
-                    break;
-                case 5:
-                    tiempo = tiempo + 31;
-                    break;
-                case 6:
-                    tiempo = tiempo + 30;
-                    break;
-                case 7:
-                    tiempo = tiempo + 31;
-                    break;
-                case 8:
-                    tiempo = tiempo + 31;
-                    break;
-                case 9:
-                    tiempo = tiempo + 30;
-                    break;
-                case 10:
-                    tiempo = tiempo + 31;
-                    break;
-                case 11:
-                    tiempo = tiempo + 30;
-                    break;
-                case 12:
-                    tiempo = tiempo + 31;
-                    break;
-                default:
-                    break;
-                }
-            }
+            // Calcular el resto de los meses del año de inicio
+            resultado = resultado + calcularAnioIncompleto(mes, anio, "resto"); // bien
 
-            tiempo = tiempo + diaFinal;
+            // Calcular años intermedios
+            resultado = resultado + calcularAniosCompletos(anio);
+
+            // Calcular los meses pasados del año final
+            resultado = resultado + calcularAnioIncompleto(mesActual, añoActual, ""); // bien
+
+            // Calcular los dias pasados del mes final
+            resultado = resultado + calcularMesIncompleto(mesActual, diaActual, añoActual, ""); // bien
+        }
+        else
+        {
+            // Calcular el resto del mes de inicio
+            resultado = resultado + calcularMesIncompleto(mesActual, diaActual, añoActual, "resto");
+
+            // Calcular el resto de los meses del año de inicio
+            resultado = resultado + calcularAnioIncompleto(mesActual, añoActual, "resto");
+
+            // Calcular años intermedios
+            resultado = resultado + calcularAniosCompletos(anio);
+
+            // Calcular los meses pasados del año final
+            resultado = resultado + calcularAnioIncompleto(mes, anio, "");
+
+            // Calcular los dias pasados del mes final
+            resultado = resultado + calcularMesIncompleto(mes, dia, anio, "");
         }
     }
 
-    return tiempo;
+    return resultado;
 }
 
 int main()
 {
+    getCurrentDate();
+
     int fecha1;
-    int fecha2;
     cout << "Ingrese la primera fecha (formato aaaammdd): " << endl;
     cin >> fecha1;
+
+    int fecha2;
     cout << "Ingrese la segunda fecha (formato aaaammdd)(distinta a la primera): " << endl;
     cin >> fecha2;
+
     int año1, mes1, dia1;
     int año2, mes2, dia2;
 
@@ -417,13 +278,17 @@ int main()
     mes1 = (fecha1 % 10000) / 100;
     dia1 = fecha1 % 100;
 
-    int tiempo1 = contarCercania(año1, mes1, dia1);
+    int tiempo1 = calcularDiferencia(año1, mes1, dia1);
+
+    cout << "Desde la primera fecha pasaron " << tiempo1 << " días" << endl;
 
     año2 = fecha2 / 10000;
     mes2 = (fecha2 % 10000) / 100;
     dia2 = fecha2 % 100;
 
-    int tiempo2 = contarCercania(año2, mes2, dia2);
+    int tiempo2 = calcularDiferencia(año2, mes2, dia2);
+
+    cout << "Desde la segunda fecha pasaron " << tiempo2 << " días" << endl;
 
     if (tiempo1 > tiempo2)
     {
