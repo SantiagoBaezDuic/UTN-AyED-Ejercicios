@@ -64,7 +64,7 @@ double calcularPorcentaje(std::vector<int> arr, string signo)
     double resultado;
     if (signo == "positivos")
     {
-        int cantidad = 0;
+        double cantidad = 0;
         for (int i = 0; i < arr.size(); i++)
         {
             if (arr[i] > 0)
@@ -87,7 +87,7 @@ double calcularPorcentaje(std::vector<int> arr, string signo)
             }
         }
 
-        double porcentaje = (cantidad * 100) / arr.size();
+        double porcentaje = (cantidad * 100) / (double)arr.size();
         resultado = porcentaje;
     }
 
@@ -111,13 +111,10 @@ int main()
 
     cout << "Ingrese los " << n << " conjuntos de " << m << " números." << endl;
 
-    cin >> num;
-
     while (memory.size() < totalNumeros)
     {
-        memory.push_back(num);
-
         cin >> num;
+        memory.push_back(num);
     }
 
     for (int i = 0; i < n; i++)
@@ -129,9 +126,11 @@ int main()
             x.push_back(memory[z + (i * m)]);
         }
 
-        cout << "El promedio del conjunto " << i + 1 << " es de: " << calcularPromedio(x) << endl;
-        cout << "El valor máximo del conjunto " << i + 1 << " es de: " << encontrarExtremo(x, "mayor") << endl;
-        cout << "El porcentaje de positivos del conjunto " << i + 1 << " es de: " << calcularPorcentaje(x, "positivos") << endl;
+        cout << "Conjunto " << i + 1 << ":" << endl;
+        cout << "El promedio del conjunto es de: " << calcularPromedio(x) << endl;
+        cout << "El valor máximo del conjunto es de: " << encontrarExtremo(x, "mayor") << endl;
+        cout << "El porcentaje de positivos del conjunto es de: " << calcularPorcentaje(x, "positivos") << endl;
+        cout << "" << endl;
     }
 
     cout << "El promedio total es de: " << calcularPromedio(memory) << endl;
@@ -159,24 +158,24 @@ TEST
 -9
 
 RESULT
-1conjunto
-promedio 2/3
+conjunto 1
+promedio 0.666
 maximo 3
-porcentaje 66
+porcentaje 66.666
 
-2conjunto
+conjunto 2
 promedio 1
 maximo 5
-porcentaje 66
+porcentaje 66.666
 
-3conjunto
-promedio -10/3
+conjunto 3
+promedio -3.333
 maximo 7
-porcentaje 33
+porcentaje 33.333
 
 total
 promedio -0.5555
+negativos 44.444
 minimo -9
-negativos 44.4
 
 */
