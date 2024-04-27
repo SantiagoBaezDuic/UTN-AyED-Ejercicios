@@ -8,52 +8,172 @@ using namespace std;
 
 int length(string s)
 {
-   return 0;
+   int count = 0;
+   while (s[count] != '\0')
+   {
+      count++;
+   }
+
+   return count;
 }
 
-int charCount(string s,char c)
+int charCount(string s, char c)
 {
-   return 0;
+   int i = 0;
+   int count = 0;
+   while (s[i] != '\0')
+   {
+      if (s[i] == c)
+      {
+         count++;
+      }
+      i++;
+   }
+
+   return count;
 }
 
-string substring(string s,int d,int h)
+string substring(string s, int d, int h)
 {
-   return "";
+   string subs = "";
+   for (int i = d; i < h; i++)
+   {
+      subs = subs + s[i];
+   }
+   return subs;
 }
 
-string substring(string s,int d) // ok
+string substring(string s, int d) // ok
 {
-   return "";
+   string subs = "";
+   for (int i = d; i < length(s); i++)
+   {
+      subs = subs + s[i];
+   }
+
+   return subs;
 }
 
-int indexOf(string s,char c) // ok
+int indexOf(string s, char c) // ok
 {
-   return 0;
+   int pos = -1;
+   for (int i = 0; i < length(s); i++)
+   {
+      if (s[i] == c)
+      {
+         pos = i;
+         return pos;
+      }
+   }
+   return pos;
 }
 
-int indexOf(string s,char c,int offSet) // ok
+int indexOf(string s, char c, int offSet) // ok
 {
-   return 0;
+   int pos = -1;
+   for (int i = offSet; i < length(s); i++)
+   {
+      if (s[i] == c)
+      {
+         pos = i;
+         return pos;
+      }
+   }
+   return pos;
 }
 
-int indexOf(string s,string toSearch) // ok
+int indexOf(string s, string toSearch) // ok
 {
-   return 0;
+   int pos = -1;
+   for (int i = 0; i < length(s); i++) // Recorro la palabra ingresada
+   {
+      bool coincidence = false;
+      if (s[i] == toSearch[0]) // Busco una coincidencia del primer caracter a buscar
+      {
+         coincidence = true;                        // Existe coincidencia
+         for (int x = 0; x < length(toSearch); x++) // Reviso los siguientes x caracteres según el largo de toSearch
+         {
+            int offset = i + x;
+            if (s[offset] != toSearch[x]) // No corresponde con el string toSearch
+            {
+               coincidence = false;
+            }
+         }
+         if (coincidence) // Si hay coincidencia, indico la posición inicial
+         {
+            pos = i;
+            return pos;
+         }
+      }
+   }
+   return pos;
 }
 
-int indexOf(string s,string toSearch,int offset) // ok
+int indexOf(string s, string toSearch, int offset) // ok
 {
-   return 0;
+   int pos = -1;
+   for (int i = offset; i < length(s); i++) // Recorro el string s
+   {
+      bool coincidence = false;
+      if (s[i] == toSearch[0]) // Busco una coincidencia del primer caracter a buscar
+      {
+         coincidence = true;                        // Existe coincidencia
+         for (int x = 0; x < length(toSearch); x++) // Reviso los siguientes x caracteres según el largo de toSearch
+         {
+            int offset = i + x;
+            if (s[offset] != toSearch[x]) // No corresponde con el string toSearch
+            {
+               coincidence = false;
+            }
+         }
+         if (coincidence) // Si hay coincidencia, indico la posición inicial
+         {
+            pos = i;
+            return pos;
+         }
+      }
+   }
+   return pos;
 }
 
-int lastIndexOf(string s,char c)
+int lastIndexOf(string s, char c)
 {
-   return 0;
+   int pos = -1;
+   for (int i = 0; i < length(s); i++)
+   {
+      if (s[i] == c)
+      {
+         pos = i;
+      }
+   }
+   return pos;
 }
 
-int indexOfN(string s,char c,int n)
+int indexOfN(string s, char c, int n)
 {
-   return 0;
+   int pos = -1;
+   if (n == 0)
+   {
+      return pos;
+   }
+   int ocurrences = 0;
+   for (int i = 0; i < length(s); i++) // Recorro el string s
+   {
+      if (s[i] == c) // Encuentro coincidencias con el caracter c
+      {
+         pos = i;
+         ocurrences++;
+         if (ocurrences == n)
+         {
+            return pos;
+         }
+      }
+      if (ocurrences < n)
+      {
+         pos = length(s);
+      }
+   }
+   return pos;
 }
 
 int charToInt(char c)
@@ -66,7 +186,7 @@ char intToChar(int i)
    return 'X';
 }
 
-int getDigit(int n,int i)
+int getDigit(int n, int i)
 {
    return 0;
 }
@@ -81,7 +201,7 @@ string intToString(int i)
    return "";
 }
 
-int stringToInt(string s,int b) // ok
+int stringToInt(string s, int b) // ok
 {
    return 0;
 }
@@ -121,32 +241,32 @@ bool isEmpty(string s)
    return true;
 }
 
-bool startsWith(string s,string x)
+bool startsWith(string s, string x)
 {
    return true;
 }
 
-bool endsWith(string s,string x)
+bool endsWith(string s, string x)
 {
    return true;
 }
 
-bool contains(string s,char c)
+bool contains(string s, char c)
 {
    return true;
 }
 
-string replace(string s,char oldChar,char newChar)
+string replace(string s, char oldChar, char newChar)
 {
    return "";
 }
 
-string insertAt(string s,int pos,char c)
+string insertAt(string s, int pos, char c)
 {
    return "";
 }
 
-string removeAt(string s,int pos)
+string removeAt(string s, int pos)
 {
    return "";
 }
@@ -166,7 +286,7 @@ string trim(string s)
    return "";
 }
 
-string replicate(char c,int n)
+string replicate(char c, int n)
 {
    return "";
 }
@@ -176,17 +296,17 @@ string spaces(int n)
    return "";
 }
 
-string lpad(string s,int n,char c)
+string lpad(string s, int n, char c)
 {
    return "";
 }
 
-string rpad(string s,int n,char c)
+string rpad(string s, int n, char c)
 {
    return "";
 }
 
-string cpad(string s,int n,char c)
+string cpad(string s, int n, char c)
 {
    return "";
 }
@@ -231,12 +351,12 @@ string toLowerCase(string s)
    return "";
 }
 
-int cmpString(string a,string b)
+int cmpString(string a, string b)
 {
    return 0;
 }
 
-int cmpDouble(double a,double b)
+int cmpDouble(double a, double b)
 {
    return 0;
 }
