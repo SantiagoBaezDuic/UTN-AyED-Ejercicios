@@ -16,8 +16,7 @@ using namespace std;
 
 int main()
 {
-   string s = "John|Paul|George|Ringo";
-   int l = indexOfN(s, '|', 3);
+   int l = intToChar(13);
 
    cout << l << endl;
    return 0;

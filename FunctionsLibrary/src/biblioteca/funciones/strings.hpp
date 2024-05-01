@@ -178,12 +178,23 @@ int indexOfN(string s, char c, int n)
 
 int charToInt(char c)
 {
-   return 0;
+   int num = -1;
+   if (c >= 48 && c <= 57)
+   {
+      num = c - '0';
+   }
+   else
+   {
+      num = c - 'A' + 10;
+   }
+   return num;
 }
 
 char intToChar(int i)
 {
-   return 'X';
+   char c;
+
+   return c;
 }
 
 int getDigit(int n, int i)
