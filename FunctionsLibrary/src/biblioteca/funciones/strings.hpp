@@ -193,7 +193,15 @@ int charToInt(char c)
 char intToChar(int i)
 {
    char c;
-
+   if (i >= 0 && i <= 9)
+   {
+      c = (char)i;
+   }
+   else if (i + 55 >= 65 && i + 55 <= 90)
+   {
+      int value = i + 55;
+      c = (char)value;
+   }
    return c;
 }
 

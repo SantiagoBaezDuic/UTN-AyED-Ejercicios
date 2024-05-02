@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-   int l = intToChar(13);
+   char l = intToChar(13);
 
    cout << l << endl;
    return 0;
