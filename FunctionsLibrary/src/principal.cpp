@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-   char l = intToChar(13);
+   int l = digitCount(-123);
 
    cout << l << endl;
    return 0;

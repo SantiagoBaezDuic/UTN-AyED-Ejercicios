@@ -207,12 +207,20 @@ char intToChar(int i)
 
 int getDigit(int n, int i)
 {
+
    return 0;
 }
 
 int digitCount(int n)
 {
-   return 0;
+   int x = n;
+   int count = 0;
+   while (x != 0)
+   {
+      x = x / 10;
+      count++;
+   }
+   return count;
 }
 
 string intToString(int i)
