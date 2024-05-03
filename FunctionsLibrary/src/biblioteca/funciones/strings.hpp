@@ -218,7 +218,18 @@ int getDigit(int n, int i)
 
 int digitCount(int n)
 {
-   return 0;
+   int x = n;
+   int count = 0;
+   if (n == 0)
+   {
+      count = 1;
+   }
+   while (x != 0)
+   {
+      x = x / 10;
+      count++;
+   }
+   return count;
 }
 
 string intToString(int i)

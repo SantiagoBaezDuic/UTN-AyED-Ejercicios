@@ -16,10 +16,9 @@ using namespace std;
 
 int main()
 {
-   int num = 12345;
-   int digit = getDigit(num, 1);
+   int l = digitCount(12345);
 
-   cout << digit << endl;
+   cout << l << endl;
    return 0;
 }
 
