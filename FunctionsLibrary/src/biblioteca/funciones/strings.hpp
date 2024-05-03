@@ -207,7 +207,13 @@ char intToChar(int i)
 
 int getDigit(int n, int i)
 {
-   return 0;
+   int x = 1;
+   for (int z = 0; z < i; z++)
+   {
+      x = x * 10;
+   }
+   int digit = (n % (10 * x)) / x;
+   return digit;
 }
 
 int digitCount(int n)

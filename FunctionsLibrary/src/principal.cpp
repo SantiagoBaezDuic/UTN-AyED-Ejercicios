@@ -16,9 +16,10 @@ using namespace std;
 
 int main()
 {
-   char l = intToChar(13);
+   int num = 12345;
+   int digit = getDigit(num, 1);
 
-   cout << l << endl;
+   cout << digit << endl;
    return 0;
 }
 
