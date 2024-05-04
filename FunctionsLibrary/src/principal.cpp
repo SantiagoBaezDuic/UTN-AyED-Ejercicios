@@ -16,7 +16,7 @@ using namespace std;
 
 int main()
 {
-   int l = digitCount(12345);
+   string l = intToString(12345);
 
    cout << l << endl;
    return 0;

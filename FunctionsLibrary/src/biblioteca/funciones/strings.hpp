@@ -195,12 +195,15 @@ char intToChar(int i)
    char c;
    if (i >= 0 && i <= 9)
    {
-      c = (char)i;
+      c = '0' + i;
    }
    else if (i + 55 >= 65 && i + 55 <= 90)
    {
-      int value = i + 55;
-      c = (char)value;
+      c = 'A' + (i - 10);
+   }
+   else
+   {
+      c = '\0';
    }
    return c;
 }
@@ -234,11 +237,24 @@ int digitCount(int n)
 
 string intToString(int i)
 {
-   return "";
+   string s = "";
+   for (int n = digitCount(i) - 1; n >= 0; n--)
+   {
+      int d = getDigit(i, n);
+      char c = intToChar(d);
+      s = s + c;
+   }
+   return s;
 }
 
 int stringToInt(string s, int b) // ok
 {
+   int i = 0;
+   for (int i = length(s) - 1; i >= 0; i--)
+   {
+      /* code */
+   }
+
    return 0;
 }
 
