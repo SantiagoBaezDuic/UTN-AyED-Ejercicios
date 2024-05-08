@@ -250,36 +250,50 @@ string intToString(int i)
 int stringToInt(string s, int b) // ok
 {
    int i = 0;
-   for (int i = length(s) - 1; i >= 0; i--)
+   int multiplier = 1;
+   for (int z = length(s) - 1; z >= 0; z--)
    {
-      /* code */
+      i = i + (charToInt(s[z]) * multiplier);
+      multiplier = multiplier * b;
    }
-
-   return 0;
+   return i;
 }
 
 int stringToInt(string s) // ok
 {
-   return 0;
+   int i = 0;
+   int multiplier = 1;
+   for (int z = length(s) - 1; z >= 0; z--)
+   {
+      i = i + (charToInt(s[z]) * multiplier);
+      multiplier = multiplier * 10;
+   }
+   return i;
 }
 
 string charToString(char c)
 {
-   return "";
+   string s;
+   s += c;
+   return s;
 }
 
 char stringToChar(string s)
 {
-   return 'X';
+   char c = (char)s[0];
+   return c;
 }
 
 string stringToString(string s)
 {
-   return "";
+   string ss;
+   ss = s;
+   return ss;
 }
 
 string doubleToString(double d)
 {
+
    return "";
 }
 
