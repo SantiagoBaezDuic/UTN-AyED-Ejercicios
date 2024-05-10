@@ -427,4 +427,19 @@ int cmpDouble(double a, double b)
    return 0;
 }
 
+// Funciones Auxiliares
+double abs(double d)
+{
+   double r;
+   if (d < 0)
+   {
+      r = -d;
+   }
+   else
+   {
+      r = d;
+   }
+   return r;
+}
+
 #endif
