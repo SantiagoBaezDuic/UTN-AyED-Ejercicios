@@ -16,20 +16,23 @@ using namespace std;
 
 int main()
 {
-   string s = "";
+   string s = "John|Paul|George|Ringo";
    char sep = '|';
-
-   addToken(s, sep, "John");
-   cout << s << endl; // Salida: John
-
-   addToken(s, sep, "Paul");
-   cout << s << endl; // Salida: John|Paul
-
-   addToken(s, sep, "George");
-   cout << s << endl; // Salida: John|Paul|George
-
-   addToken(s, sep, "Ringo");
-   cout << s << endl; // Salida: John|Paul|George|Ringo
+   string t = "Paul";
+   int p = findToken(s, sep, t);
+   cout << p << endl; // Salida: 1
+   string x = "John";
+   p = findToken(s, sep, x);
+   cout << p << endl; // Salida: 0
+   string o = "George";
+   p = findToken(s, sep, o);
+   cout << p << endl; // Salida: 2
+   string r = "Ringo";
+   p = findToken(s, sep, r);
+   cout << p << endl; // Salida: 3
+   string q = "Pablo";
+   p = findToken(s, sep, q);
+   cout << p << endl; // Salida: -1
 
    return 0;
 }
