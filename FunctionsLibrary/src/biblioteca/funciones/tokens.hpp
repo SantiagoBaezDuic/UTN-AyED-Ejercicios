@@ -19,6 +19,14 @@ int tokenCount(string s, char sep)
 
 void addToken(string &s, char sep, string t)
 {
+   if (tokenCount(s, sep) > 0)
+   {
+      s += sep + t;
+   }
+   else
+   {
+      s += t;
+   }
 }
 
 string getTokenAt(string s, char sep, int i)

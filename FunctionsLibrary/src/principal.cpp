@@ -16,18 +16,20 @@ using namespace std;
 
 int main()
 {
-   string s = "John|Paul|George|Ringo";
+   string s = "";
    char sep = '|';
-   int n = tokenCount(s, sep);
-   cout << n << endl; // Salida: 4
-   s = "John";
-   sep = '|';
-   n = tokenCount(s, sep);
-   cout << n << endl; // Salida: 1
-   s = "";
-   sep = '|';
-   n = tokenCount(s, sep);
-   cout << n << endl; // Salida: 0
+
+   addToken(s, sep, "John");
+   cout << s << endl; // Salida: John
+
+   addToken(s, sep, "Paul");
+   cout << s << endl; // Salida: John|Paul
+
+   addToken(s, sep, "George");
+   cout << s << endl; // Salida: John|Paul|George
+
+   addToken(s, sep, "Ringo");
+   cout << s << endl; // Salida: John|Paul|George|Ringo
 
    return 0;
 }
