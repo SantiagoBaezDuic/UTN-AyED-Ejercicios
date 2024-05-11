@@ -315,7 +315,7 @@ double stringToDouble(string s)
 {
    double d = 0;
    bool isDecimal = false;
-   int posCount = 1;
+   double posCount = 1;
    for (int i = 0; i < length(s); i++)
    {
       if (s[i] == '.')
@@ -328,8 +328,9 @@ double stringToDouble(string s)
       }
       else if (isDecimal && s[i] != '.')
       {
-         d = d + s[i] / (10 * posCount);
-         posCount++;
+         d += charToInt(s[i]) / (10 * posCount);
+         cout << "decimal: " << charToInt(s[i]) / (10 * posCount) << endl;
+         posCount = posCount * 10;
       }
    }
 
