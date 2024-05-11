@@ -293,153 +293,355 @@ string stringToString(string s)
 
 string doubleToString(double d)
 {
-
-   return "";
+   double a = d;
+   int entera = (int)a;
+   double decimal = a - entera;
+   string decimalString = "";
+   string enteraString = intToString(entera);
+   int cota = 0;
+   int cotaMax = 3;
+   while (decimal > 0.0000001 && cota < cotaMax)
+   {
+      int num = decimal * 10;
+      decimal = decimal * 10 - num;
+      decimalString = decimalString + intToChar(num);
+      cota++;
+   }
+   string wholeString = enteraString + "." + decimalString;
+   return wholeString;
 }
 
 double stringToDouble(string s)
 {
-   return 1.1;
+   double d = 0;
+   bool isDecimal = false;
+   int posCount = 1;
+   for (int i = 0; i < length(s); i++)
+   {
+      if (s[i] == '.')
+      {
+         isDecimal = true;
+      }
+      if (!isDecimal && s[i] != '.')
+      {
+         d = d * 10 + charToInt(s[i]);
+      }
+      else if (isDecimal && s[i] != '.')
+      {
+         d = d + s[i] / (10 * posCount);
+         posCount++;
+      }
+   }
+
+   return d;
 }
 
 bool isEmpty(string s)
 {
-   return true;
+   bool value = false;
+   if (s == "")
+   {
+      value = true;
+   }
+
+   return value;
 }
 
 bool startsWith(string s, string x)
 {
-   return true;
+   bool value = true;
+   if (length(x) == 0)
+   {
+      if (length(s) != 0)
+      {
+         value = false;
+      }
+   }
+
+   for (int i = 0; i < length(x); i++)
+   {
+      if (s[i] != x[i])
+      {
+         value = false;
+      }
+   }
+
+   return value;
 }
 
 bool endsWith(string s, string x)
 {
-   return true;
+   bool value = true;
+   if (length(x) == 0)
+   {
+      if (length(s) != 0)
+      {
+         value = false;
+         return value;
+      }
+   }
+   int dif = length(s) - length(x);
+   for (int i = length(s); i > dif; i--)
+   {
+      if (s[i] != x[i - dif])
+      {
+         value = false;
+      }
+   }
+
+   return value;
 }
 
 bool contains(string s, char c)
 {
-   return true;
+   bool value = false;
+   for (int i = 0; i < length(s); i++)
+   {
+      if (s[i] == c)
+      {
+         value = true;
+      }
+   }
+
+   return value;
 }
 
 string replace(string s, char oldChar, char newChar)
 {
-   return "";
+   string newString = s;
+   for (int i = 0; i < length(s); i++)
+   {
+      if (newString[i] == oldChar)
+      {
+         newString[i] = newChar;
+      }
+   }
+
+   return newString;
 }
 
 string insertAt(string s, int pos, char c)
 {
-   return "";
+   string subs1 = substring(s, 0, pos);
+   string subs2 = substring(s, pos);
+   string newString = subs1 + c + subs2;
+   return newString;
 }
 
 string removeAt(string s, int pos)
 {
-   return "";
+   string subs1 = substring(s, 0, pos);
+   string subs2 = substring(s, pos + 1);
+   string newString = subs1 + subs2;
+   return newString;
 }
 
 string ltrim(string s)
 {
-   return "";
+   string newString;
+   bool notEmpty = false;
+   int count = 0;
+   while (!notEmpty)
+   {
+      if (s[count] != ' ')
+      {
+         notEmpty = true;
+      }
+      else
+      {
+         count++;
+      }
+   }
+   newString = substring(s, count);
+
+   return newString;
 }
 
 string rtrim(string s)
 {
-   return "";
+   string newString;
+   bool notEmpty = false;
+   int count = length(s);
+   while (!notEmpty)
+   {
+      if (s[count - 1] != ' ')
+      {
+         notEmpty = true;
+      }
+      else
+      {
+         count--;
+      }
+   }
+   newString = substring(s, 0, count);
+
+   return newString;
 }
 
 string trim(string s)
 {
-   return "";
+   string newString = rtrim(ltrim(s));
+   return newString;
 }
 
 string replicate(char c, int n)
 {
-   return "";
+   string newString;
+   for (int i = 0; i < n; i++)
+   {
+      newString += c;
+   }
+
+   return newString;
 }
 
 string spaces(int n)
 {
-   return "";
+   string newString;
+   for (int i = 0; i < n; i++)
+   {
+      newString += ' ';
+   }
+
+   return newString;
 }
 
 string lpad(string s, int n, char c)
 {
-   return "";
+   string newString = replicate(c, n - length(s)) + s;
+   return newString;
 }
 
 string rpad(string s, int n, char c)
 {
-   return "";
+   string newString = s + replicate(c, n - length(s));
+   return newString;
 }
 
 string cpad(string s, int n, char c)
 {
-   return "";
+   int amount = (n - length(s)) / 2;
+   string newString = replicate(c, amount) + s + replicate(c, amount);
+   return newString;
 }
 
 bool isDigit(char c)
 {
-   return true;
+   bool value = false;
+   if (c >= 48 && c <= 57)
+   {
+      value = true;
+   }
+   return value;
 }
 
 bool isLetter(char c)
 {
-   return true;
+   bool value = false;
+   if (c >= 65 && c <= 90)
+   {
+      value = true;
+   }
+   else if (c >= 97 && c <= 122)
+   {
+      value = true;
+   }
+   return value;
 }
 
 bool isUpperCase(char c)
 {
-   return true;
+   bool value = false;
+   if (c >= 65 && c <= 90)
+   {
+      value = true;
+   }
+   return value;
 }
 
 bool isLowerCase(char c)
 {
-   return true;
+   bool value = false;
+   if (c >= 97 && c <= 122)
+   {
+      value = true;
+   }
+   return value;
 }
 
 char toUpperCase(char c)
 {
-   return 'X';
+   char upperChar = c - 32;
+   return upperChar;
 }
 
 char toLowerCase(char c)
 {
-   return 'X';
+   char lowerChar = c + 32;
+   return lowerChar;
 }
 
 string toUpperCase(string s)
 {
-   return "";
+   string newString;
+   for (int i = 0; i < length(s); i++)
+   {
+      newString += toUpperCase(s[i]);
+   }
+
+   return newString;
 }
 
 string toLowerCase(string s)
 {
-   return "";
+   string newString;
+   for (int i = 0; i < length(s); i++)
+   {
+      newString += toLowerCase(s[i]);
+   }
+
+   return newString;
 }
 
 int cmpString(string a, string b)
 {
-   return 0;
+   int result = 0;
+   for (int i = 0; i < length(a); i++)
+   {
+      if (result == 0 && charToInt(a[i]) < charToInt(b[i]))
+      {
+         result = -1;
+      }
+      else if (result == 0 && charToInt(a[i]) > charToInt(b[i]))
+      {
+         result = 1;
+      }
+   }
+   if (result == 0 && length(a) < length(b))
+   {
+      result = -1;
+   }
+   else if (result == 0 && length(a) > length(b))
+   {
+      result = 1;
+   }
+
+   return result;
 }
 
 int cmpDouble(double a, double b)
 {
-   return 0;
-}
+   int result = 0;
+   if (a > b)
+   {
+      result = 1;
+   }
+   else if (b > a)
+   {
+      result = -1;
+   }
 
-// Funciones Auxiliares
-double abs(double d)
-{
-   double r;
-   if (d < 0)
-   {
-      r = -d;
-   }
-   else
-   {
-      r = d;
-   }
-   return r;
+   return result;
 }
 
 #endif

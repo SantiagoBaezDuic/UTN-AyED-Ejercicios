@@ -16,7 +16,22 @@ using namespace std;
 
 int main()
 {
-   cout << "c: " << digitCount(123.4) << endl;
+   string s1 = "Carlos";
+   string s2 = "Alma";
+
+   if (cmpString(s1, s2) < 0)
+   {
+      cout << s1 << " es menor que: " << s2 << endl;
+   }
+   else if (cmpString(s1, s2) > 0)
+   {
+      cout << s2 << " es menor que: " << s1 << endl;
+   }
+   else if (cmpString(s1, s2) == 0)
+   {
+      cout << "son iguales" << endl;
+   }
+
    return 0;
 }
 
