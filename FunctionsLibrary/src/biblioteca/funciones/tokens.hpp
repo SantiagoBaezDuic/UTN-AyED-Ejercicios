@@ -6,29 +6,35 @@
 #include "strings.hpp"
 using namespace std;
 
-int tokenCount(string s,char sep)
+int tokenCount(string s, char sep)
 {
-   return 0;
+   int amount = 0;
+   if (s != "")
+   {
+      amount = 1;
+   }
+   amount += charCount(s, sep);
+   return amount;
 }
 
-void addToken(string& s,char sep,string t)
+void addToken(string &s, char sep, string t)
 {
 }
 
-string getTokenAt(string s,char sep, int i)
+string getTokenAt(string s, char sep, int i)
 {
    return "";
 }
 
-void removeTokenAt(string& s,char sep, int i)
+void removeTokenAt(string &s, char sep, int i)
 {
 }
 
-void setTokenAt(string& s,char sep, string t,int i)
+void setTokenAt(string &s, char sep, string t, int i)
 {
 }
 
-int findToken(string s,char sep, string t)
+int findToken(string s, char sep, string t)
 {
    return 0;
 }

@@ -16,21 +16,18 @@ using namespace std;
 
 int main()
 {
-   string s1 = "Carlos";
-   string s2 = "Alma";
-
-   if (cmpString(s1, s2) < 0)
-   {
-      cout << s1 << " es menor que: " << s2 << endl;
-   }
-   else if (cmpString(s1, s2) > 0)
-   {
-      cout << s2 << " es menor que: " << s1 << endl;
-   }
-   else if (cmpString(s1, s2) == 0)
-   {
-      cout << "son iguales" << endl;
-   }
+   string s = "John|Paul|George|Ringo";
+   char sep = '|';
+   int n = tokenCount(s, sep);
+   cout << n << endl; // Salida: 4
+   s = "John";
+   sep = '|';
+   n = tokenCount(s, sep);
+   cout << n << endl; // Salida: 1
+   s = "";
+   sep = '|';
+   n = tokenCount(s, sep);
+   cout << n << endl; // Salida: 0
 
    return 0;
 }
