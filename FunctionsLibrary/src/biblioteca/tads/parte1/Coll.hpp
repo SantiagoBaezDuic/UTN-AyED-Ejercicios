@@ -11,18 +11,20 @@ struct Coll
 {
    string tokens;
    char sep;
+   int cI;
+   bool eoc;
 };
 
 template <typename T>
 Coll<T> coll(char sep)
 {
-   return {"", sep};
+   return {"", sep, 0, true};
 }
 
 template <typename T>
 Coll<T> coll()
 {
-   return {"", '|'};
+   return {"", '|', 0, true};
 }
 
 template <typename T>
@@ -49,6 +51,7 @@ int collAdd(Coll<T> &c, T t, string tToString(T))
 {
    addToken(c.tokens, c.sep, tToString(t));
    int newTokenAmount = tokenCount(c.tokens, c.sep);
+   c.eoc = false;
    return newTokenAmount;
 }
 
@@ -87,8 +90,6 @@ void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToStri
    Coll<T> sortedC = coll<T>(c.sep);
    for (int i = 0; i < tokenCount(c.tokens, c.sep); i++) // Recorro la cadena tokenizada desordenada
    {
-      cout << "chain: " << sortedC.tokens << endl;
-      cout << "entered original chain on position: " << i << endl;
       string currentToken = getTokenAt(c.tokens, c.sep, i);
       if (isEmpty(sortedC.tokens)) // Si la cadena ordenada esta vacía, ingreso el primero token
       {
@@ -120,13 +121,25 @@ void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToStri
 template <typename T>
 bool collHasNext(Coll<T> c)
 {
-   return true;
+   bool status = false;
+   if (c.cI < collSize(c))
+   {
+      status = true;
+   }
+
+   return status;
 }
 
 template <typename T>
 T collNext(Coll<T> &c, T tFromString(string))
 {
    T t;
+   if (collHasNext(c))
+   {
+      t = tFromString(getTokenAt(c.tokens, c.sep, c.cI));
+      c.cI++;
+   }
+
    return t;
 }
 
@@ -134,12 +147,36 @@ template <typename T>
 T collNext(Coll<T> &c, bool &endOfColl, T tFromString(string))
 {
    T t;
+   if (!endOfColl)
+   {
+      t = tFromString(getTokenAt(c.tokens, c.sep, c.cI));
+      c.cI++;
+      if (c.cI >= collSize)
+      {
+         c.eoc = true;
+      }
+   }
    return t;
 }
 
 template <typename T>
 void collReset(Coll<T> &c)
 {
+   c.cI = 0;
+   if (c.cI >= collSize)
+   {
+      c.eoc = true;
+   }
+}
+
+template <typename T>
+void collShow(Coll<T> c, string tToString(T), T tFromString(string))
+{
+   while (collHasNext(c))
+   {
+      string s = tToString(collNext(c, tFromString));
+      cout << s << endl;
+   }
 }
 
 #endif

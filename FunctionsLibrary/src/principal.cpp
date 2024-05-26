@@ -24,7 +24,8 @@ int main()
 
    collSort<string>(c, cmpString, stringToString, stringToString);
 
-   cout << c.tokens << endl;
+   collShow<string>(c, stringToString, stringToString);
+
    return 0;
 }
 
