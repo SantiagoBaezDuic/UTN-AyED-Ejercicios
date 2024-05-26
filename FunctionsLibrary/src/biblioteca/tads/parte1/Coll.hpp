@@ -73,7 +73,7 @@ int collFind(Coll<T> c, K k, int cmpTK(T, K), T tFromString(string))
    for (int i = 0; i < tokenCount(c.tokens, c.sep); i++)
    {
       string currentToken = getTokenAt(c.tokens, c.sep, i);
-      if (cmpTK(currentToken, k))
+      if (cmpTK(currentToken, k) == 0)
       {
          p = i;
       }
@@ -84,25 +84,48 @@ int collFind(Coll<T> c, K k, int cmpTK(T, K), T tFromString(string))
 template <typename T>
 void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToString(T))
 {
-   Coll<T> sortedC = coll(c.sep);
+   Coll<T> sortedC = coll<T>(c.sep);
    for (int i = 0; i < tokenCount(c.tokens, c.sep); i++) // Recorro la cadena tokenizada desordenada
    {
+      cout << "chain: " << sortedC.tokens << endl;
+      cout << "entered original chain on position: " << i << endl;
       string currentToken = getTokenAt(c.tokens, c.sep, i);
-      if (isEmpty(currentToken)) // Si la cadena ordenada esta vacía, ingreso el primero token
+      if (isEmpty(sortedC.tokens)) // Si la cadena ordenada esta vacía, ingreso el primero token
       {
          addToken(sortedC.tokens, c.sep, currentToken);
       }
       else
       {
+         bool hasBeenAdded = false;
+
          for (int x = 0; x < tokenCount(sortedC.tokens, sortedC.sep); x++) // Recorro la cadena ordenada y comparo con cada token
          {
+
             string currentTokenToCompare = getTokenAt(sortedC.tokens, sortedC.sep, x);
-            if (cmpTT(tFromString(currentToken), tFromString(currentTokenToCompare) <= 0)) // Si el token actual precede al de la cadena ordenada
+            if (cmpTT(tFromString(currentToken), tFromString(currentTokenToCompare)) <= 0) // Si el token actual precede al de la cadena ordenada
             {
+               string newTokens = "";
+               for (int y = 0; y < x; y++) // Meto los tokens anteriores
+               {
+                  addToken(newTokens, sortedC.sep, getTokenAt(sortedC.tokens, sortedC.sep, y));
+               }
+               cout << "pretokens: " << newTokens << endl;
+               addToken(newTokens, sortedC.sep, currentToken);                   // Meto el token en sí
+               for (int z = x; z < tokenCount(sortedC.tokens, sortedC.sep); z++) // Meto los tokens posteriores
+               {
+                  addToken(newTokens, sortedC.sep, getTokenAt(sortedC.tokens, sortedC.sep, z));
+               }
+               cout << "posttokens: " << newTokens << endl;
+               hasBeenAdded = true;
             }
+         }
+         if (!hasBeenAdded) // Si no se metió el token, es posterior a todos, por lo tanto lo agrego
+         {
+            addToken(sortedC.tokens, sortedC.sep, currentToken);
          }
       }
    }
+   c.tokens = sortedC.tokens;
 }
 
 template <typename T>

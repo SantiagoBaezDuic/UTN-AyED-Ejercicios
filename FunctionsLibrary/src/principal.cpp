@@ -16,6 +16,15 @@ using namespace std;
 
 int main()
 {
+   Coll<string> c = coll<string>();
+   collAdd<string>(c, "John", stringToString);
+   collAdd<string>(c, "Paul", stringToString);
+   collAdd<string>(c, "George", stringToString);
+   collAdd<string>(c, "Ringo", stringToString);
+
+   collSort<string>(c, cmpString, stringToString, stringToString);
+
+   cout << c.tokens << endl;
    return 0;
 }
 

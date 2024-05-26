@@ -94,7 +94,7 @@ int findToken(string s, char sep, string t)
       {
          pos = i;
       }
-      }
+   }
 
    return pos;
 }
