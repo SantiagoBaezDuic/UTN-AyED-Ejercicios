@@ -151,7 +151,7 @@ T collNext(Coll<T> &c, bool &endOfColl, T tFromString(string))
    {
       t = tFromString(getTokenAt(c.tokens, c.sep, c.cI));
       c.cI++;
-      if (c.cI >= collSize)
+      if (c.cI >= collSize(c))
       {
          c.eoc = true;
       }
@@ -163,7 +163,7 @@ template <typename T>
 void collReset(Coll<T> &c)
 {
    c.cI = 0;
-   if (c.cI >= collSize)
+   if (c.cI >= collSize(c))
    {
       c.eoc = true;
    }
