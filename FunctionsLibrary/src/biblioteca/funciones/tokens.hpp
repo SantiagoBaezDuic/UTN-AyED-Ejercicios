@@ -85,6 +85,21 @@ void setTokenAt(string &s, char sep, string t, int i)
    }
 }
 
+void insertTokenAt(string &s, char sep, string t, int p)
+{
+   string nextTokens = "";
+   for (int i = 0; i < p; i++)
+   {
+      addToken(nextTokens, sep, getTokenAt(s, sep, i));
+   }
+   addToken(nextTokens, sep, t);
+   for (int i = p; i < tokenCount(s, sep); i++)
+   {
+      addToken(nextTokens, sep, getTokenAt(s, sep, i));
+   }
+   s = nextTokens;
+}
+
 int findToken(string s, char sep, string t)
 {
    int pos = -1;

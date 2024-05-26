@@ -102,20 +102,9 @@ void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToStri
          {
 
             string currentTokenToCompare = getTokenAt(sortedC.tokens, sortedC.sep, x);
-            if (cmpTT(tFromString(currentToken), tFromString(currentTokenToCompare)) <= 0) // Si el token actual precede al de la cadena ordenada
+            if (cmpTT(tFromString(currentToken), tFromString(currentTokenToCompare)) <= 0 && !hasBeenAdded) // Si el token actual precede al de la cadena ordenada
             {
-               string newTokens = "";
-               for (int y = 0; y < x; y++) // Meto los tokens anteriores
-               {
-                  addToken(newTokens, sortedC.sep, getTokenAt(sortedC.tokens, sortedC.sep, y));
-               }
-               cout << "pretokens: " << newTokens << endl;
-               addToken(newTokens, sortedC.sep, currentToken);                   // Meto el token en sí
-               for (int z = x; z < tokenCount(sortedC.tokens, sortedC.sep); z++) // Meto los tokens posteriores
-               {
-                  addToken(newTokens, sortedC.sep, getTokenAt(sortedC.tokens, sortedC.sep, z));
-               }
-               cout << "posttokens: " << newTokens << endl;
+               insertTokenAt(sortedC.tokens, sortedC.sep, currentToken, x);
                hasBeenAdded = true;
             }
          }
