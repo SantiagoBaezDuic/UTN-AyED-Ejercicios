@@ -21,6 +21,7 @@ int main()
    collAdd<string>(c, "Paul", stringToString);
    collAdd<string>(c, "George", stringToString);
    collAdd<string>(c, "Ringo", stringToString);
+   collSetAt<string>(c, "Pablo", 2, stringToString);
 
    collSort<string>(c, cmpString, stringToString, stringToString);
 

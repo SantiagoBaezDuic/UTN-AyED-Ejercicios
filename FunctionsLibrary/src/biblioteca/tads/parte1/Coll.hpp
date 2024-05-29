@@ -58,7 +58,6 @@ int collAdd(Coll<T> &c, T t, string tToString(T))
 template <typename T>
 void collSetAt(Coll<T> &c, T t, int p, string tToString(T))
 {
-   removeTokenAt(c.tokens, c.sep, p);
    setTokenAt(c.tokens, c.sep, tToString(t), p);
 }
 
