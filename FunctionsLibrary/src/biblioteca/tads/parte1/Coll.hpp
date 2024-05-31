@@ -104,7 +104,19 @@ void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToStri
             string currentTokenToCompare = getTokenAt(sortedC.tokens, sortedC.sep, x);
             if (cmpTT(tFromString(currentToken), tFromString(currentTokenToCompare)) <= 0 && !hasBeenAdded) // Si el token actual precede al de la cadena ordenada
             {
-               insertTokenAt(sortedC.tokens, sortedC.sep, currentToken, x);
+
+               string nextTokens = "";
+               for (int i = 0; i < x; i++)
+               {
+                  addToken(nextTokens, sortedC.sep, getTokenAt(sortedC.tokens, sortedC.sep, i));
+               }
+               addToken(nextTokens, sortedC.sep, currentToken);
+               for (int i = x; i < tokenCount(sortedC.tokens, sortedC.sep); i++)
+               {
+                  addToken(nextTokens, sortedC.sep, getTokenAt(sortedC.tokens, sortedC.sep, i));
+               }
+               sortedC.tokens = nextTokens;
+
                hasBeenAdded = true;
             }
          }
@@ -165,16 +177,6 @@ void collReset(Coll<T> &c)
    if (c.cI >= collSize(c))
    {
       c.eoc = true;
-   }
-}
-
-template <typename T>
-void collShow(Coll<T> c, string tToString(T), T tFromString(string))
-{
-   while (collHasNext(c))
-   {
-      string s = tToString(collNext(c, tFromString));
-      cout << s << endl;
    }
 }
 
