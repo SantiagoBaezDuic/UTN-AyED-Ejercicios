@@ -40,8 +40,11 @@ int main()
 
     cout << collGetAt(c, 2, stringToString) << " //expected: Test3" << endl;
 
-    cout << collFind<string>(c, "not", cmpString, stringToString) << " //expected -1" << endl;
-    cout << collFind<string>(c, "NuevoTest", cmpString, stringToString) << " //expected 4" << endl;
+    int notfound = collFind<string, string>(c, "not", cmpString, stringToString);
+    int found = collFind<string, string>(c, "NuevoTest", cmpString, stringToString);
+
+    cout << notfound << " //expected -1" << endl;
+    cout << found << " //expected 4" << endl;
 
     Coll s = coll<string>('&');
 
@@ -50,11 +53,11 @@ int main()
     collAdd<string>(s, "George", stringToString);
     collAdd<string>(s, "Ringo", stringToString);
 
-    cout << s.tokens << " //expected: Jhon&Paul&George&Ringo" endl;
+    cout << s.tokens << " //expected: Jhon&Paul&George&Ringo" << endl;
 
     collSort(s, cmpString, stringToString, stringToString);
 
-    cout << s.tokens << " //expected: George&Jhon&Paul&Ringo" endl;
+    cout << s.tokens << " //expected: George&Jhon&Paul&Ringo" << endl;
 
     for (int i = 0; i < collSize(s); i++)
     {

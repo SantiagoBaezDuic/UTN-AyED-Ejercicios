@@ -178,6 +178,10 @@ void collReset(Coll<T> &c)
    {
       c.eoc = true;
    }
+   else
+   {
+      c.eoc = false;
+   }
 }
 
 #endif
