@@ -16,16 +16,15 @@ using namespace std;
 
 int main()
 {
-   FILE* f = fopen("test.x", "w+b");
+   FILE *f = fopen("test.x", "w+b");
 
    string s = "Esto es un test";
    write<string>(f, s);
-
    fclose(f);
-   FILE* f2 = fopen("test.x", "r+b");
+
+   FILE *f2 = fopen("test.x", "r+b");
    string s2 = read<string>(f2);
    cout << s2 << endl;
-
    fclose(f2);
 
    return 0;
