@@ -16,15 +16,17 @@ using namespace std;
 
 int main()
 {
-   Coll<string> c = coll<string>();
-   collAdd<string>(c, "John", stringToString);
-   collAdd<string>(c, "Paul", stringToString);
-   collAdd<string>(c, "George", stringToString);
-   collAdd<string>(c, "Ringo", stringToString);
+   FILE* f = fopen("test.x", "w+b");
 
-   collSort<string>(c, cmpString, stringToString, stringToString);
+   string s = "Esto es un test";
+   write<string>(f, s);
 
-   cout << c.tokens << endl;
+   fclose(f);
+   FILE* f2 = fopen("test.x", "r+b");
+   string s2 = read<string>(f2);
+   cout << s2 << endl;
+
+   fclose(f2);
 
    return 0;
 }
