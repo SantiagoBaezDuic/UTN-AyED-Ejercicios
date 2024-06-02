@@ -41,7 +41,8 @@ int fileSize(FILE *f)
 template <typename T>
 int filePos(FILE *f)
 {
-   return 0;
+   int i = ftell(f) / sizeof(T);
+   return i;
 }
 
 #endif

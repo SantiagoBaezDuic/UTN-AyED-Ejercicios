@@ -14,28 +14,45 @@ using namespace std;
 #ifndef _MAIN
 #define _MAIN
 
+// int main()
+// {
+//    FILE *f = fopen("test.x", "w+b");
+
+//    string s = "test0";
+//    write<string>(f, s);
+//    s = "test1";
+//    write<string>(f, s);
+//    s = "test2";
+//    write<string>(f, s);
+//    cout << "size: " << fileSize<string>(f) << endl;
+//    fclose(f);
+
+//    return 0;
+// }
+
+// int main()
+// {
+//    FILE *f2 = fopen("test.x", "r+b");
+//    cout << read<string>(f2) << endl;
+//    cout << read<string>(f2) << endl;
+//    cout << read<string>(f2) << endl;
+
+//    fclose(f2);
+//    return 0;
+// }
+
 int main()
 {
    FILE *f = fopen("test.x", "w+b");
 
-   string s = "Saracatunga";
-   write<string>(f, s);
-   s = "xd";
-   write<string>(f, s);
-   s = "xd2";
-   write<string>(f, s);
-   cout << "size: " << fileSize<string>(f) << endl;
+   write<string>(f, "test1");
+   write<string>(f, "test2");
+   write<string>(f, "test3");
+   cout << filePos<string>(f) << endl;
+   seek<string>(f, 2);
+   cout << filePos<string>(f) << endl;
+
    fclose(f);
-
-   FILE *f2 = fopen("test.x", "r+b");
-   for (int i = 0; i < fileSize<string>(f2); i++)
-   {
-      string x = read<string>(f);
-      cout << x << endl;
-   }
-
-   fclose(f2);
-
    return 0;
 }
 
