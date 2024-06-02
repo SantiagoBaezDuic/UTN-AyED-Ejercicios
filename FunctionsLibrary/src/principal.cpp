@@ -28,9 +28,9 @@ int main()
    fclose(f);
 
    FILE *f2 = fopen("test.x", "r+b");
-   while (!feof(f2))
+   for (int i = 0; i < fileSize<string>(f2); i++)
    {
-      string x = read<string>(f2);
+      string x = read<string>(f);
       cout << x << endl;
    }
 
