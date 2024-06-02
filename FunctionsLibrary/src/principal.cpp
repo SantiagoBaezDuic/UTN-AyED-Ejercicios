@@ -18,13 +18,22 @@ int main()
 {
    FILE *f = fopen("test.x", "w+b");
 
-   string s = "Esto es un test";
+   string s = "Saracatunga";
    write<string>(f, s);
+   s = "xd";
+   write<string>(f, s);
+   s = "xd2";
+   write<string>(f, s);
+   cout << "size: " << fileSize<string>(f) << endl;
    fclose(f);
 
    FILE *f2 = fopen("test.x", "r+b");
-   string s2 = read<string>(f2);
-   cout << s2 << endl;
+   while (!feof(f2))
+   {
+      string x = read<string>(f2);
+      cout << x << endl;
+   }
+
    fclose(f2);
 
    return 0;
