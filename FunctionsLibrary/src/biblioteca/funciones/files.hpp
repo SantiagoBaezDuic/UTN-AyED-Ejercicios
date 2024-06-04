@@ -30,10 +30,10 @@ template <typename T>
 int fileSize(FILE *f)
 {
    int l, c;
-   c = fseek(f, 0, SEEK_CUR);
+   c = ftell(f);
    fseek(f, 0, SEEK_END);
    l = ftell(f);
-   fseek(f, c * sizeof(T), SEEK_SET);
+   fseek(f, c, SEEK_SET);
 
    return l / sizeof(T);
 }
