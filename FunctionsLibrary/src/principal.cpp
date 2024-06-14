@@ -32,19 +32,19 @@ using namespace std;
 //    return 0;
 // }
 
-int main()
-{
-   FILE *f2 = fopen("test.x", "r+b");
-   cout << "test1: " << ftell(f2) / sizeof(string) << endl;
-   cout << "size: " << fileSize<string>(f2) << endl;
-   cout << "test1: " << ftell(f2) / sizeof(string) << endl;
-   cout << read<string>(f2) << endl;
-   cout << read<string>(f2) << endl;
-   cout << read<string>(f2) << endl;
+// int main()
+// {
+//    FILE *f2 = fopen("test.x", "r+b");
+//    cout << "test1: " << ftell(f2) / sizeof(string) << endl;
+//    cout << "size: " << fileSize<string>(f2) << endl;
+//    cout << "test1: " << ftell(f2) / sizeof(string) << endl;
+//    cout << read<string>(f2) << endl;
+//    cout << read<string>(f2) << endl;
+//    cout << read<string>(f2) << endl;
 
-   fclose(f2);
-   return 0;
-}
+//    fclose(f2);
+//    return 0;
+// }
 
 // int main()
 // {
@@ -60,5 +60,28 @@ int main()
 //    fclose(f);
 //    return 0;
 // }
+
+// int main()
+// {
+//    FILE *f = fopen("test.txt", "w+b");
+//    cout << f << endl;
+//    write<char>(f, 'A');
+//    write<char>(f, 'B');
+//    write<char>(f, 'C');
+//    write<char>(f, '3');
+//    fclose(f);
+//    return 0;
+// }
+
+int main()
+{
+   FILE *f = fopen("test.txt", "r+b");
+   cout << fread(f, sizeof(char), 1, f) << endl;
+   cout << fread(f, sizeof(char), 1, f) << endl;
+   cout << fread(f, sizeof(char), 1, f) << endl;
+   cout << fread(f, sizeof(char), 1, f) << endl;
+   fclose(f);
+   return 0;
+}
 
 #endif

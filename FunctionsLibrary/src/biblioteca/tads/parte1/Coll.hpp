@@ -184,4 +184,30 @@ void collReset(Coll<T> &c)
    }
 }
 
+template <typename T>
+string collToString(Coll<T> x)
+{
+   char sep = 1;
+   string sTokens = x.tokens;
+   string sSep = string(1, x.sep);
+   string sCI = to_string(x.cI);
+   string sEoc = to_string(x.eoc);
+   return sTokens + sep + sSep + sep + sCI + sep + sEoc;
+}
+
+template <typename T>
+Coll<T> collFromString(string s)
+{
+   char sep = 1;
+   Coll x;
+   string t0 = getTokenAt(s, sep, 0);
+   x.tokens = t0;
+   string t1 = getTokenAt(s, sep, 1);
+   x.sep = (char)t1[0];
+   string t2 = getTokenAt(s, sep, 2);
+   x.cI = stoi(t2);
+   string t3 = getTokenAt(s, sep, 3);
+   return x;
+}
+
 #endif
