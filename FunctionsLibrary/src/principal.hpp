@@ -11,379 +11,174 @@
 #include "biblioteca/tads/Coll.hpp"
 using namespace std;
 
-struct Ciudad
+struct CuentoEstad
 {
-    int idCiu;
-    char descr[20];
-    int millas;
+    string porcentaje;
+    int c;
 };
 
-struct RCiudad
+struct RCuento
 {
-    Ciudad c;
-    int cont;
+    Cuento cuento;
+    CuentoEstad estad;
 };
 
-struct Vuelo
+struct Reproduccion
 {
-    int idVue;
-    int cap;
-    int idOri;
-    int idDes;
+    int idUsuario;
+    int idCuento;
+    int fecha;
+    int minutos;
 };
 
-struct RVuelo
+struct Cuento
 {
-    Vuelo v;
-    int cpa;
-    int cpr;
+    int idCuento;
+    int idRelator;
+    int idAutor;
+    char titulo[50];
+    int duracion;
 };
 
-struct RCliente
+struct Relator
 {
-    int idCli;
-    int acum;
+    int idRelator;
+    char nombre[50];
 };
 
-struct Reserva
+struct RRelator
 {
-    int idCli;
-    int idVue;
-    int cant;
+    Relator relator;
+    int c;
 };
 
-string ciudadToString(Ciudad x)
+string cuentoEstadToString(CuentoEstad x)
 {
     char sep = 1;
-    string sIdCiu = to_string(x.idCiu);
-    string sDescr = x.descr;
-    string sMillas = to_string(x.millas);
-    return sIdCiu + sep + sDescr + sep + sMillas;
+    string sPorcentaje = x.porcentaje;
+    string sC = to_string(x.c);
+    return sPorcentaje + sep + sC;
 }
 
-Ciudad ciudadFromString(string s)
+CuentoEstad cuentoEstadFromString(string s)
 {
     char sep = 1;
-    Ciudad x;
+    CuentoEstad x;
     string t0 = getTokenAt(s, sep, 0);
-    x.idCiu = stoi(t0);
+    x.porcentaje = t0;
     string t1 = getTokenAt(s, sep, 1);
-    strcpy(x.descr, t1.c_str());
-    string t2 = getTokenAt(s, sep, 2);
-    x.millas = stoi(t2);
+    x.c = stoi(t1);
     return x;
 }
 
-string ciudadToDebug(Ciudad x)
-{
-    stringstream sout;
-    sout << "[";
-    sout << x.idCiu;
-    sout << ",";
-    sout << x.descr;
-    sout << ",";
-    sout << x.millas;
-    sout << "]";
-    return sout.str();
-}
-
-string ciudadToDebug(string mssg, Ciudad x)
-{
-    stringstream sout;
-    sout << mssg << ":[";
-    sout << x.idCiu;
-    sout << ",";
-    sout << x.descr;
-    sout << ",";
-    sout << x.millas;
-    sout << "]";
-    return sout.str();
-}
-
-Ciudad ciudad(int idCiu, string descr, int millas)
-{
-    Ciudad a;
-    a.idCiu = idCiu;
-    strcpy(a.descr, descr.c_str());
-    a.millas = millas;
-    return a;
-}
-
-string rCiudadToString(RCiudad x)
+string rCuentoToString(RCuento x)
 {
     char sep = 2;
-    string sC = ciudadToString(x.c);
-    string sCont = to_string(x.cont);
-    return sC + sep + sCont;
+    string sCuento = cuentoToString(x.cuento);
+    string sEstad = cuentoEstadToString(x.estad);
+    return sCuento + sep + sEstad;
 }
 
-RCiudad rCiudadFromString(string s)
+RCuento rCuentoFromString(string s)
 {
     char sep = 2;
-    RCiudad x;
+    RCuento x;
     string t0 = getTokenAt(s, sep, 0);
-    x.c = ciudadFromString(t0);
+    x.cuento = cuentoFromString(t0);
     string t1 = getTokenAt(s, sep, 1);
-    x.cont = stoi(t1);
+    x.estad = cuentoEstadFromString(t1);
     return x;
 }
 
-string rCiudadToDebug(RCiudad x)
-{
-    stringstream sout;
-    sout << "[";
-    sout << ciudadToDebug(x.c);
-    sout << ",";
-    sout << x.cont;
-    sout << "]";
-    return sout.str();
-}
-
-string rCiudadToDebug(string mssg, RCiudad x)
-{
-    stringstream sout;
-    sout << mssg << ":[";
-    sout << ciudadToDebug(x.c);
-    sout << ",";
-    sout << x.cont;
-    sout << "]";
-    return sout.str();
-}
-
-RCiudad rCiudad(Ciudad c, int cont)
-{
-    RCiudad a;
-    a.c = c;
-    a.cont = cont;
-    return a;
-}
-
-string vueloToString(Vuelo x)
+string reproduccionToString(Reproduccion x)
 {
     char sep = 3;
-    string sIdVue = to_string(x.idVue);
-    string sCap = to_string(x.cap);
-    string sIdOri = to_string(x.idOri);
-    string sIdDes = to_string(x.idDes);
-    return sIdVue + sep + sCap + sep + sIdOri + sep + sIdDes;
+    string sIdUsuario = to_string(x.idUsuario);
+    string sIdCuento = to_string(x.idCuento);
+    string sFecha = to_string(x.fecha);
+    string sMinutos = to_string(x.minutos);
+    return sIdUsuario + sep + sIdCuento + sep + sFecha + sep + sMinutos;
 }
 
-Vuelo vueloFromString(string s)
+Reproduccion reproduccionFromString(string s)
 {
     char sep = 3;
-    Vuelo x;
+    Reproduccion x;
     string t0 = getTokenAt(s, sep, 0);
-    x.idVue = stoi(t0);
+    x.idUsuario = stoi(t0);
     string t1 = getTokenAt(s, sep, 1);
-    x.cap = stoi(t1);
+    x.idCuento = stoi(t1);
     string t2 = getTokenAt(s, sep, 2);
-    x.idOri = stoi(t2);
+    x.fecha = stoi(t2);
     string t3 = getTokenAt(s, sep, 3);
-    x.idDes = stoi(t3);
+    x.minutos = stoi(t3);
     return x;
 }
 
-string vueloToDebug(Vuelo x)
-{
-    stringstream sout;
-    sout << "[";
-    sout << x.idVue;
-    sout << ",";
-    sout << x.cap;
-    sout << ",";
-    sout << x.idOri;
-    sout << ",";
-    sout << x.idDes;
-    sout << "]";
-    return sout.str();
-}
-
-string vueloToDebug(string mssg, Vuelo x)
-{
-    stringstream sout;
-    sout << mssg << ":[";
-    sout << x.idVue;
-    sout << ",";
-    sout << x.cap;
-    sout << ",";
-    sout << x.idOri;
-    sout << ",";
-    sout << x.idDes;
-    sout << "]";
-    return sout.str();
-}
-
-Vuelo vuelo(int idVue, int cap, int idOri, int idDes)
-{
-    Vuelo a;
-    a.idVue = idVue;
-    a.cap = cap;
-    a.idOri = idOri;
-    a.idDes = idDes;
-    return a;
-}
-
-string rVueloToString(RVuelo x)
+string cuentoToString(Cuento x)
 {
     char sep = 4;
-    string sV = vueloToString(x.v);
-    string sCpa = to_string(x.cpa);
-    string sCpr = to_string(x.cpr);
-    return sV + sep + sCpa + sep + sCpr;
+    string sIdCuento = to_string(x.idCuento);
+    string sIdRelator = to_string(x.idRelator);
+    string sIdAutor = to_string(x.idAutor);
+    string sTitulo = x.titulo;
+    string sDuracion = to_string(x.duracion);
+    return sIdCuento + sep + sIdRelator + sep + sIdAutor + sep + sTitulo + sep + sDuracion;
 }
 
-RVuelo rVueloFromString(string s)
+Cuento cuentoFromString(string s)
 {
     char sep = 4;
-    RVuelo x;
+    Cuento x;
     string t0 = getTokenAt(s, sep, 0);
-    x.v = vueloFromString(t0);
+    x.idCuento = stoi(t0);
     string t1 = getTokenAt(s, sep, 1);
-    x.cpa = stoi(t1);
+    x.idRelator = stoi(t1);
     string t2 = getTokenAt(s, sep, 2);
-    x.cpr = stoi(t2);
+    x.idAutor = stoi(t2);
+    string t3 = getTokenAt(s, sep, 3);
+    strcpy(x.titulo, t3.c_str());
+    string t4 = getTokenAt(s, sep, 4);
+    x.duracion = stoi(t4);
     return x;
 }
 
-string rVueloToDebug(RVuelo x)
-{
-    stringstream sout;
-    sout << "[";
-    sout << vueloToDebug(x.v);
-    sout << ",";
-    sout << x.cpa;
-    sout << ",";
-    sout << x.cpr;
-    sout << "]";
-    return sout.str();
-}
-
-string rVueloToDebug(string mssg, RVuelo x)
-{
-    stringstream sout;
-    sout << mssg << ":[";
-    sout << vueloToDebug(x.v);
-    sout << ",";
-    sout << x.cpa;
-    sout << ",";
-    sout << x.cpr;
-    sout << "]";
-    return sout.str();
-}
-
-RVuelo rVuelo(Vuelo v, int cpa, int cpr)
-{
-    RVuelo a;
-    a.v = v;
-    a.cpa = cpa;
-    a.cpr = cpr;
-    return a;
-}
-
-string rClienteToString(RCliente x)
+string relatorToString(Relator x)
 {
     char sep = 5;
-    string sIdCli = to_string(x.idCli);
-    string sAcum = to_string(x.acum);
-    return sIdCli + sep + sAcum;
+    string sIdRelator = to_string(x.idRelator);
+    string sNombre = x.nombre;
+    return sIdRelator + sep + sNombre;
 }
 
-RCliente rClienteFromString(string s)
+Relator relatorFromString(string s)
 {
     char sep = 5;
-    RCliente x;
+    Relator x;
     string t0 = getTokenAt(s, sep, 0);
-    x.idCli = stoi(t0);
+    x.idRelator = stoi(t0);
     string t1 = getTokenAt(s, sep, 1);
-    x.acum = stoi(t1);
+    strcpy(x.nombre, t1.c_str());
     return x;
 }
 
-string rClienteToDebug(RCliente x)
-{
-    stringstream sout;
-    sout << "[";
-    sout << x.idCli;
-    sout << ",";
-    sout << x.acum;
-    sout << "]";
-    return sout.str();
-}
-
-string rClienteToDebug(string mssg, RCliente x)
-{
-    stringstream sout;
-    sout << mssg << ":[";
-    sout << x.idCli;
-    sout << ",";
-    sout << x.acum;
-    sout << "]";
-    return sout.str();
-}
-
-RCliente rCliente(int idCli, int acum)
-{
-    RCliente b;
-    b.idCli = idCli;
-    b.acum = acum;
-    return b;
-}
-
-string reservaToString(Reserva x)
+string rRelatorToString(RRelator x)
 {
     char sep = 6;
-    string sIdCli = to_string(x.idCli);
-    string sIdVue = to_string(x.idVue);
-    string sCant = to_string(x.cant);
-    return sIdCli + sep + sIdVue + sep + sCant;
+    string sRelator = relatorToString(x.relator);
+    string sC = to_string(x.c);
+    return sRelator + sep + sC;
 }
 
-Reserva reservaFromString(string s)
+RRelator rRelatorFromString(string s)
 {
     char sep = 6;
-    Reserva x;
+    RRelator x;
     string t0 = getTokenAt(s, sep, 0);
-    x.idCli = stoi(t0);
+    x.relator = relatorFromString(t0);
     string t1 = getTokenAt(s, sep, 1);
-    x.idVue = stoi(t1);
-    string t2 = getTokenAt(s, sep, 2);
-    x.cant = stoi(t2);
+    x.c = stoi(t1);
     return x;
-}
-
-string reservaToDebug(Reserva x)
-{
-    stringstream sout;
-    sout << "[";
-    sout << x.idCli;
-    sout << ",";
-    sout << x.idVue;
-    sout << ",";
-    sout << x.cant;
-    sout << "]";
-    return sout.str();
-}
-
-string reservaToDebug(string mssg, Reserva x)
-{
-    stringstream sout;
-    sout << mssg << ":[";
-    sout << x.idCli;
-    sout << ",";
-    sout << x.idVue;
-    sout << ",";
-    sout << x.cant;
-    sout << "]";
-    return sout.str();
-}
-
-Reserva reserva(int idCli, int idVue, int cant)
-{
-    Reserva a;
-    a.idCli = idCli;
-    a.idVue = idVue;
-    a.cant = cant;
-    return a;
 }
 
 #endif
