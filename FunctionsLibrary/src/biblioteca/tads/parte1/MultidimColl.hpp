@@ -27,7 +27,7 @@ Mtx<T> mtx(int f, int c, T valorDefault, string tToString(T))
       }
 
       // Añado el elemento a la matriz
-      collAdd<Coll<T>>(m, x, collToString);
+      collAdd<Coll<T>>(m.mtx, x, collToString);
    }
 
    return m;
@@ -47,11 +47,28 @@ template <typename T>
 void mtxSetAt(Mtx<T> &m, T t, int f, int c, string tToString(T))
 {
    // Traigo la fila
-   Coll<T> row = collGetAt<Coll<T>>(m, f, tFromString);
+   Coll<T> row = collGetAt<Coll<T>>(m, f, collFromString);
    // Seteo el elemento nuevo
    collSetAt<T>(row, t, c, tToString);
    // Actualizo la fila
    collSetAt<Coll<T>>(m, row, f, tToString);
+}
+
+template <typename T>
+void mtxShow(Mtx<T> m, T tFromString(string))
+{
+   collReset(m.mtx);
+   while (collHasNext(m.mtx))
+   {
+      Coll<T> f = collNext<Coll<T>>(m.mtx, collFromString);
+      collReset(f);
+      while (collHasNext(f))
+      {
+         T e = collNext<T>(f, tFromString);
+         cout << e;
+      }
+      cout << endl;
+   }
 }
 
 // ------------------------

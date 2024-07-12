@@ -73,14 +73,21 @@ using namespace std;
 //    return 0;
 // }
 
+// int main()
+// {
+//    FILE *f = fopen("test.txt", "r+b");
+//    cout << fread(f, sizeof(char), 1, f) << endl;
+//    cout << fread(f, sizeof(char), 1, f) << endl;
+//    cout << fread(f, sizeof(char), 1, f) << endl;
+//    cout << fread(f, sizeof(char), 1, f) << endl;
+//    fclose(f);
+//    return 0;
+// }
+
 int main()
 {
-   FILE *f = fopen("test.txt", "r+b");
-   cout << fread(f, sizeof(char), 1, f) << endl;
-   cout << fread(f, sizeof(char), 1, f) << endl;
-   cout << fread(f, sizeof(char), 1, f) << endl;
-   cout << fread(f, sizeof(char), 1, f) << endl;
-   fclose(f);
+   Mtx<string> x = mtx<string>(3, 3, "X", stringToString);
+   mtxShow<string>(x, stringToString);
    return 0;
 }
 
