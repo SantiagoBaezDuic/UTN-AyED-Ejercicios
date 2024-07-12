@@ -16,15 +16,18 @@ template <typename T>
 Mtx<T> mtx(int f, int c, T valorDefault, string tToString(T))
 {
    Mtx<T> m;
+   // Agrego colecciones de T la cantidad necesaria de veces (corresponde con las filas)
    for (int i = 0; i < f; i++)
    {
       Coll<T> x;
+      // Agrego elementos de T la cantidad necesaria de veces (corresponde con las columnas)
       for (int i = 0; i < c; i++)
       {
          collAdd<T>(x, valorDefault, tToString);
       }
 
-      collAdd(m, x, collToString);
+      // Añado el elemento a la matriz
+      collAdd<Coll<T>>(m, x, collToString);
    }
 
    return m;
@@ -33,13 +36,22 @@ Mtx<T> mtx(int f, int c, T valorDefault, string tToString(T))
 template <typename T>
 T mtxGetAt(Mtx<T> m, int f, int c, T tFromString(string))
 {
-   T t;
+   // Traigo la fila
+   Coll<T> row = collGetAt<Coll<T>>(m, f, tFromString);
+   // Leo el elemento de la columna correspondiente
+   T t = collGetAt<T>(row, c, tFromString);
    return t;
 }
 
 template <typename T>
 void mtxSetAt(Mtx<T> &m, T t, int f, int c, string tToString(T))
 {
+   // Traigo la fila
+   Coll<T> row = collGetAt<Coll<T>>(m, f, tFromString);
+   // Seteo el elemento nuevo
+   collSetAt<T>(row, t, c, tToString);
+   // Actualizo la fila
+   collSetAt<Coll<T>>(m, row, f, tToString);
 }
 
 // ------------------------
