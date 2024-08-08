@@ -84,10 +84,55 @@ using namespace std;
 //    return 0;
 // }
 
+// int main()
+// {
+//    Mtx<string> x = mtx<string>(3, 3, "X", stringToString);
+//    mtxShow<string>(x, stringToString);
+//    return 0;
+// }
+
+int cmpPalabras(string palabra1, string palabra2)
+{
+   palabra1 = toUpperCase(palabra1);
+   palabra2 = toUpperCase(palabra2);
+   int uno = charCount(palabra1, 'A');
+   int dos = charCount(palabra2, 'A');
+   return dos - uno;
+}
+
 int main()
 {
-   Mtx<string> x = mtx<string>(3, 3, "X", stringToString);
-   mtxShow<string>(x, stringToString);
+   Coll<string> memoria = coll<string>();
+
+   string palabra = "";
+
+   cout << "Ingrese un conjunto de palabras, finalizado por la entrada de la palabra FIN" << endl;
+
+   cin >> palabra;
+
+   while (palabra != "FIN")
+   {
+      palabra = intToString(collSize<string>(memoria) + 1) + "-" + palabra;
+      collAdd<string>(memoria, palabra, stringToString);
+      cin >> palabra;
+   }
+
+   collReset<string>(memoria);
+   while (collHasNext<string>(memoria))
+   {
+      string s = collNext<string>(memoria, stringToString);
+      cout << s << endl;
+   }
+
+   collSort<string>(memoria, cmpPalabras, stringToString, stringToString);
+
+   collReset<string>(memoria);
+   while (collHasNext<string>(memoria))
+   {
+      string s = collNext<string>(memoria, stringToString);
+      cout << s << endl;
+   }
+
    return 0;
 }
 

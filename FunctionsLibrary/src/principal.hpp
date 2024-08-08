@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include "biblioteca/funciones/strings.hpp"
 #include "biblioteca/funciones/tokens.hpp"
-#include "biblioteca/tads/Coll.hpp"
+#include "biblioteca/tads/parte1/Coll.hpp"
 using namespace std;
 
 struct CuentoEstad

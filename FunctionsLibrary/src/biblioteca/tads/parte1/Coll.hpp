@@ -199,7 +199,7 @@ template <typename T>
 Coll<T> collFromString(string s)
 {
    char sep = 1;
-   Coll x;
+   Coll<T> x;
    string t0 = getTokenAt(s, sep, 0);
    x.tokens = t0;
    string t1 = getTokenAt(s, sep, 1);
