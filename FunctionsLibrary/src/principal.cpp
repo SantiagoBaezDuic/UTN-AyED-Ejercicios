@@ -112,26 +112,22 @@ int main()
 
    while (palabra != "FIN")
    {
-      palabra = intToString(collSize<string>(memoria) + 1) + "-" + palabra;
+      palabra = palabra + "-" + intToString(collSize<string>(memoria) + 1);
       collAdd<string>(memoria, palabra, stringToString);
       cin >> palabra;
-   }
-
-   collReset<string>(memoria);
-   while (collHasNext<string>(memoria))
-   {
-      string s = collNext<string>(memoria, stringToString);
-      cout << s << endl;
    }
 
    collSort<string>(memoria, cmpPalabras, stringToString, stringToString);
 
    collReset<string>(memoria);
+   FILE *f = fopen("PALABRAS.dat", "w+b");
    while (collHasNext<string>(memoria))
    {
       string s = collNext<string>(memoria, stringToString);
-      cout << s << endl;
+      write(f, s);
    }
+
+   fclose(f);
 
    return 0;
 }

@@ -20,6 +20,15 @@ using namespace std;
 de las palabras ingresadas y el número de orden en que se ingresó. Los registros deben estar ordenados ascendentemente según la
 cantidad de letras 'A' (sin discriminar entre mayúsculas y minúsculas) de las palabras que contienen.*/
 
+int cmpPalabras(string palabra1, string palabra2)
+{
+    palabra1 = toUpperCase(palabra1);
+    palabra2 = toUpperCase(palabra2);
+    int uno = charCount(palabra1, 'A');
+    int dos = charCount(palabra2, 'A');
+    return dos - uno;
+}
+
 int main()
 {
     Coll<string> memoria = coll<string>();
@@ -32,10 +41,22 @@ int main()
 
     while (palabra != "FIN")
     {
-        palabra += collSize<string>(memoria) + 1;
-        cout << palabra << endl;
+        palabra = palabra + "-" + intToString(collSize<string>(memoria) + 1);
         collAdd<string>(memoria, palabra, stringToString);
+        cin >> palabra;
     }
+
+    collSort<string>(memoria, cmpPalabras, stringToString, stringToString);
+
+    collReset<string>(memoria);
+    FILE *f = fopen("PALABRAS.dat", "w+b");
+    while (collHasNext<string>(memoria))
+    {
+        string s = collNext<string>(memoria, stringToString);
+        write(f, s);
+    }
+
+    fclose(f);
 
     return 0;
 }
