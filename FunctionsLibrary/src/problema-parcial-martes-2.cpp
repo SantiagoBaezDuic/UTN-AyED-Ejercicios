@@ -48,6 +48,7 @@ int cmpPalabras(string palabra1, string palabra2)
 
 int main()
 {
+    // Leo las palabras del archivo y las guardo en la colección
     FILE *f = fopen("PALABRAS.dat", "r+b");
     Coll<string> memoria = coll<string>();
     while (!feof(f))
@@ -58,8 +59,10 @@ int main()
     }
     fclose(f);
 
+    // Ordeno la colección
     collSort<string>(memoria, cmpPalabras, stringToString, stringToString);
 
+    // Muestro todas las palabras por consola
     collReset<string>(memoria);
     while (collHasNext(memoria))
     {

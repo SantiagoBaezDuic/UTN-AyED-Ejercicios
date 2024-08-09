@@ -90,7 +90,7 @@ void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToStri
    for (int i = 0; i < tokenCount(c.tokens, c.sep); i++) // Recorro la cadena tokenizada desordenada
    {
       string currentToken = getTokenAt(c.tokens, c.sep, i);
-      if (isEmpty(sortedC.tokens)) // Si la cadena ordenada esta vacía, ingreso el primero token
+      if (isEmpty(sortedC.tokens)) // Si la cadena ordenada esta vacía, ingreso el primer token
       {
          addToken(sortedC.tokens, c.sep, currentToken);
       }
