@@ -26,7 +26,7 @@ int cmpPalabras(string palabra1, string palabra2)
     palabra2 = toUpperCase(palabra2);
     int uno = charCount(palabra1, 'A');
     int dos = charCount(palabra2, 'A');
-    return dos - uno;
+    return uno - dos;
 }
 
 int main()
@@ -41,7 +41,7 @@ int main()
 
     while (palabra != "FIN")
     {
-        palabra = palabra + "-" + intToString(collSize<string>(memoria) + 1);
+        palabra = intToString(collSize<string>(memoria) + 1) + "-" + palabra;
         collAdd<string>(memoria, palabra, stringToString);
         cin >> palabra;
     }
@@ -53,12 +53,12 @@ int main()
     while (collHasNext<string>(memoria))
     {
         string s = collNext<string>(memoria, stringToString);
-        write(f, s);
+        cout << s << endl;
+        write<string>(f, s);
     }
 
     fclose(f);
 
     return 0;
 }
-
 #endif
