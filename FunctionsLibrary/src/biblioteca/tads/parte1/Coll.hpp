@@ -123,7 +123,6 @@ void collSort(Coll<T> &c, int cmpTT(T, T), T tFromString(string), string tToStri
             addToken(sortedC.tokens, sortedC.sep, currentToken);
          }
       }
-      cout << "DEBUG//" << sortedC.tokens << endl;
    }
    c.tokens = sortedC.tokens;
 }
