@@ -29,14 +29,14 @@ string leerPalabra(FILE *f)
 void filtrarRepetidas(Coll<string> &original)
 {
     Coll<string> sinRepetidas = coll<string>();
-    for (int i = 0; i < collSize<string>(original); i++)
+    for (int i = 0; i < collSize<string>(original); i++) // Leo todas las palabras de memoria
     {
         string s = collGetAt<string>(original, i, stringToString);
-        if (sinRepetidas.tokens == "")
+        if (sinRepetidas.tokens == "") // Si la colección filtrada está vacía, meto la primera palabra
         {
             collAdd<string>(sinRepetidas, s, stringToString);
         }
-        else if (collFind<string>(sinRepetidas, s, cmpString, stringToString) == -1)
+        else if (collFind<string>(sinRepetidas, s, cmpString, stringToString) == -1) // Si la palabra no está en la colección filtrada, la agrego
         {
             collAdd<string>(sinRepetidas, s, stringToString);
         }
@@ -47,6 +47,7 @@ void filtrarRepetidas(Coll<string> &original)
 
 int contarConsonantes(string s)
 {
+    // Cuento todas las letras y le resto las vocales
     int counter = length(s);
     counter -= charCount(s, 'A');
     counter -= charCount(s, 'E');
@@ -66,6 +67,7 @@ int cmpPalabras(string palabra1, string palabra2)
 
 int main()
 {
+    // Subo las palabras del archivo a memoria
     FILE *f = fopen("PALABRAS.dat", "r+b");
     Coll<string> memoria = coll<string>();
     while (!feof(f))
@@ -73,18 +75,20 @@ int main()
         string s = leerPalabra(f);
         collAdd<string>(memoria, s, stringToString);
     }
+    fclose(f);
 
+    // Ordeno la colección según consonantes
     collSort<string>(memoria, cmpPalabras, stringToString, stringToString);
+    // Filtro las repetidas
     filtrarRepetidas(memoria);
 
+    // Muestro las palabras por consola
     collReset<string>(memoria);
     while (collHasNext<string>(memoria))
     {
         string s = collNext<string>(memoria, stringToString);
         cout << s << endl;
     }
-
-    fclose(f);
     return 0;
 }
 #endif
