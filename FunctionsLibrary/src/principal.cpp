@@ -91,45 +91,68 @@ using namespace std;
 //    return 0;
 // }
 
-int cmpPalabras(string palabra1, string palabra2)
+// int cmpPalabras(string palabra1, string palabra2)
+// {
+//    palabra1 = toUpperCase(palabra1);
+//    palabra2 = toUpperCase(palabra2);
+//    int uno = charCount(palabra1, 'A');
+//    int dos = charCount(palabra2, 'A');
+//    return uno - dos;
+// }
+
+// int main()
+// {
+//    Coll<string> memoria = coll<string>();
+
+//    string palabra = "";
+
+//    cout << "Ingrese un conjunto de palabras, finalizado por la entrada de la palabra FIN" << endl;
+
+//    cin >> palabra;
+
+//    while (palabra != "FIN")
+//    {
+//       palabra = intToString(collSize<string>(memoria) + 1) + "-" + palabra;
+//       collAdd<string>(memoria, palabra, stringToString);
+//       cin >> palabra;
+//    }
+
+//    collSort<string>(memoria, cmpPalabras, stringToString, stringToString);
+
+//    collReset<string>(memoria);
+//    FILE *f = fopen("PALABRAS.dat", "w+b");
+//    while (collHasNext<string>(memoria))
+//    {
+//       string s = collNext<string>(memoria, stringToString);
+//       cout << s << endl;
+//       write<string>(f, s);
+//    }
+
+//    fclose(f);
+
+//    return 0;
+// }
+
+int cmpInt(int a, int b)
 {
-   palabra1 = toUpperCase(palabra1);
-   palabra2 = toUpperCase(palabra2);
-   int uno = charCount(palabra1, 'A');
-   int dos = charCount(palabra2, 'A');
-   return uno - dos;
+   return a - b;
 }
 
 int main()
 {
-   Coll<string> memoria = coll<string>();
-
-   string palabra = "";
-
-   cout << "Ingrese un conjunto de palabras, finalizado por la entrada de la palabra FIN" << endl;
-
-   cin >> palabra;
-
-   while (palabra != "FIN")
-   {
-      palabra = intToString(collSize<string>(memoria) + 1) + "-" + palabra;
-      collAdd<string>(memoria, palabra, stringToString);
-      cin >> palabra;
-   }
-
-   collSort<string>(memoria, cmpPalabras, stringToString, stringToString);
-
-   collReset<string>(memoria);
-   FILE *f = fopen("PALABRAS.dat", "w+b");
-   while (collHasNext<string>(memoria))
-   {
-      string s = collNext<string>(memoria, stringToString);
-      cout << s << endl;
-      write<string>(f, s);
-   }
-
-   fclose(f);
-
+   int a[5];
+   int len = 0;
+   add<int>(a, len, 1);
+   add<int>(a, len, 2);
+   add<int>(a, len, 3);
+   add<int>(a, len, 4);
+   add<int>(a, len, 5);
+   show<int>(a, len);
+   insert<int>(a, len, 10, 3);
+   show<int>(a, len);
+   remove<int>(a, len, 2);
+   show<int>(a, len);
+   cout << find<int, int>(a, len, 4, cmpInt) << endl;
    return 0;
 }
 
