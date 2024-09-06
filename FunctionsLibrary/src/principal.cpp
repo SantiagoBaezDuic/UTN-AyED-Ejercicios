@@ -135,7 +135,7 @@ using namespace std;
 
 int cmpInt(int a, int b)
 {
-   return a - b;
+   return b - a;
 }
 
 int main()
@@ -148,11 +148,22 @@ int main()
    add<int>(a, len, 4);
    add<int>(a, len, 5);
    show<int>(a, len);
+   cout << "------------" << endl;
    insert<int>(a, len, 10, 3);
    show<int>(a, len);
+   cout << "------------" << endl;
    remove<int>(a, len, 2);
    show<int>(a, len);
+   cout << "------------" << endl;
    cout << find<int, int>(a, len, 4, cmpInt) << endl;
+   cout << "------------" << endl;
+   cout << "len: " << len << endl;
+   cout << "------------" << endl;
+   orderedInsert<int>(a, len, 3, cmpInt);
+   show<int>(a, len);
+   sort<int>(a, len, cmpInt);
+   cout << "------------" << endl;
+   show<int>(a, len);
    return 0;
 }
 

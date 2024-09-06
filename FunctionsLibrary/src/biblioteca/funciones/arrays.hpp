@@ -13,12 +13,19 @@ int add(T arr[], int &len, T e)
 template <typename T>
 void insert(T arr[], int &len, T e, int p)
 {
-   for (int i = len; i > p; i--)
+   if (len == 0)
    {
-      arr[i] = arr[i - 1];
+      add<T>(arr, len, e);
    }
-   arr[p] = e;
-   len++;
+   else
+   {
+      for (int i = len; i > p; i--)
+      {
+         arr[i] = arr[i - 1];
+      }
+      arr[p] = e;
+      len++;
+   }
 }
 
 template <typename T>
@@ -52,26 +59,28 @@ int find(T arr[], int len, K k, int cmpTK(T, K))
 template <typename T>
 int orderedInsert(T arr[], int &len, T e, int cmpTT(T, T))
 {
+   int pos = -1;
    if (len == 0)
    {
-      add(arr, len, e);
+      add<T>(arr, len, e);
       return 0;
    }
-   int pos = -1;
-   for (int i = 0; i < len; i++)
+   else
    {
-      if (cmpTT(arr[i], e) < 0)
+      bool inserted = false;
+      for (int i = 0; i < len && !inserted; i++)
       {
-         insert(arr, len, e, i);
+         if (cmpTT(arr[i], e) < 0)
+         {
+            cout << "Saltando en pos: " << i << endl;
+            insert<T>(arr, len, e, i);
+            inserted = true;
+            pos = i;
+         }
       }
    }
 
    return pos;
-}
-
-template <typename T>
-void sort(T arr[], int len, int cmpTT(T, T))
-{
 }
 
 template <typename T>
@@ -82,5 +91,37 @@ void show(T arr[], int len)
       cout << arr[i] << endl;
    }
 }
+
+template <typename T>
+void sort(T arr[], int len, int cmpTT(T, T))
+{
+   T arr2[len];
+   int len2 = 0;
+   for (int i = 0; i < len; i++)
+   {
+      cout << "show n: " << i << endl;
+      show<T>(arr2, len2);
+
+      if (len2 == 0)
+      {
+         add<T>(arr2, len2, arr[i]);
+      }
+      else
+      {
+         orderedInsert<T>(arr2, len2, arr[i], cmpTT);
+      }
+   }
+
+   arr = arr2;
+}
+
+// template <typename T>
+// void show(T arr[], int len)
+// {
+//    for (int i = 0; i < len; i++)
+//    {
+//       cout << arr[i] << endl;
+//    }
+// }
 
 #endif
