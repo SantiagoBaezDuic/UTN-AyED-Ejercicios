@@ -142,6 +142,7 @@ int main()
 {
    int a[5];
    int len = 0;
+   cout << "Ingresando primeros cinco números" << endl;
    add<int>(a, len, 1);
    add<int>(a, len, 2);
    add<int>(a, len, 3);
@@ -149,18 +150,24 @@ int main()
    add<int>(a, len, 5);
    show<int>(a, len);
    cout << "------------" << endl;
+   cout << "Ingresando número 10 en posición 3 (4)" << endl;
    insert<int>(a, len, 10, 3);
    show<int>(a, len);
    cout << "------------" << endl;
+   cout << "Eliminando número en posición 2 (3)" << endl;
    remove<int>(a, len, 2);
    show<int>(a, len);
    cout << "------------" << endl;
+   cout << "Buscando índice del elemento 4" << endl;
    cout << find<int, int>(a, len, 4, cmpInt) << endl;
    cout << "------------" << endl;
    cout << "len: " << len << endl;
    cout << "------------" << endl;
+   cout << "Ingreso ordenado del número 3" << endl;
    orderedInsert<int>(a, len, 3, cmpInt);
    show<int>(a, len);
+   cout << "------------" << endl;
+   cout << "Ordenando array" << endl;
    sort<int>(a, len, cmpInt);
    cout << "------------" << endl;
    show<int>(a, len);
