@@ -18,7 +18,6 @@ template <typename T>
 Array<T> arraY()
 {
    Array<T> ret;
-   ret.len = 0;
    return ret;
 }
 
