@@ -65,7 +65,6 @@ int orderedInsert(T arr[], int &len, T e, int cmpTT(T, T))
    {
       if (cmpTT(arr[i], e) < 0)
       {
-         cout << "Saltando en pos: " << i << endl;
          insert<T>(arr, len, e, i);
          inserted = true;
          pos = i;
@@ -79,15 +78,6 @@ int orderedInsert(T arr[], int &len, T e, int cmpTT(T, T))
    }
 
    return pos;
-}
-
-template <typename T>
-void show(T arr[], int len)
-{
-   for (int i = 0; i < len; i++)
-   {
-      cout << arr[i] << endl;
-   }
 }
 
 template <typename T>
@@ -106,13 +96,13 @@ void sort(T arr[], int len, int cmpTT(T, T))
    }
 }
 
-// template <typename T>
-// void show(T arr[], int len)
-// {
-//    for (int i = 0; i < len; i++)
-//    {
-//       cout << arr[i] << endl;
-//    }
-// }
+template <typename T>
+void show(T arr[], int len)
+{
+   for (int i = 0; i < len; i++)
+   {
+      cout << arr[i] << endl;
+   }
+}
 
 #endif

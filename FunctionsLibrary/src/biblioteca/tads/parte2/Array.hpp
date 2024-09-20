@@ -7,79 +7,82 @@
 
 using namespace std;
 
-template<typename T>
+template <typename T>
 struct Array
 {
+   int len = 0;
+   T arr[0];
 };
 
-template<typename T>
-Array<T> array()
+template <typename T>
+Array<T> arraY()
 {
    Array<T> ret;
+   ret.len = 0;
    return ret;
 }
 
-template<typename T>
-int arrayAdd(Array<T>& a,T t)
+template <typename T>
+int arrayAdd(Array<T> &a, T t)
 {
-   return 0;
+   add<T>(a.arr, a.len, t);
+   return a.len - 1;
 }
 
-template<typename T>
-T* arrayGet(Array<T> a,int p)
+template <typename T>
+T *arrayGet(Array<T> a, int p)
 {
    return NULL;
 }
 
-template<typename T>
-void arraySet(Array<T>& a,int p,T t)
+template <typename T>
+void arraySet(Array<T> &a, int p, T t)
 {
 }
 
-template<typename T>
-void arrayInsert(Array<T>& a,T t,int p)
+template <typename T>
+void arrayInsert(Array<T> &a, T t, int p)
 {
 }
 
-template<typename T>
+template <typename T>
 int arraySize(Array<T> a)
 {
    return 0;
 }
 
-template<typename T>
-T arrayRemove(Array<T>& a,int p)
+template <typename T>
+T arrayRemove(Array<T> &a, int p)
 {
    T t;
    return t;
 }
 
-template<typename T>
-void arrayRemoveAll(Array<T>& a)
+template <typename T>
+void arrayRemoveAll(Array<T> &a)
 {
 }
 
-template<typename T,typename K>
-int arrayFind(Array<T> a,K k,int cmpTK(T,K))
-{
-   return 0;
-}
-
-template<typename T>
-int arrayOrderedInsert(Array<T>& a,T t,int cmpTT(T,T))
+template <typename T, typename K>
+int arrayFind(Array<T> a, K k, int cmpTK(T, K))
 {
    return 0;
 }
 
-template<typename T>
-T* arrayDiscover(Array<T>& a,T t,int cmpTT(T,T))
+template <typename T>
+int arrayOrderedInsert(Array<T> &a, T t, int cmpTT(T, T))
+{
+   return 0;
+}
+
+template <typename T>
+T *arrayDiscover(Array<T> &a, T t, int cmpTT(T, T))
 {
    return NULL;
 }
 
-
-template<typename T>
-void arraySort(Array<T>& a,int cmpTT(T,T))
+template <typename T>
+void arraySort(Array<T> &a, int cmpTT(T, T))
 {
 }
 

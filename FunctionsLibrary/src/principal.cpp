@@ -133,44 +133,56 @@ using namespace std;
 //    return 0;
 // }
 
-int cmpInt(int a, int b)
-{
-   return b - a;
-}
+// int cmpInt(int a, int b)
+// {
+//    return b - a;
+// }
 
+// int main()
+// {
+//    int a[5];
+//    int len = 0;
+//    cout << "Ingresando primeros cinco números" << endl;
+//    add<int>(a, len, 1);
+//    add<int>(a, len, 2);
+//    add<int>(a, len, 3);
+//    add<int>(a, len, 4);
+//    add<int>(a, len, 5);
+//    show<int>(a, len);
+//    cout << "------------" << endl;
+//    cout << "Ingresando número 10 en posición 3 (4)" << endl;
+//    insert<int>(a, len, 10, 3);
+//    show<int>(a, len);
+//    cout << "------------" << endl;
+//    cout << "Eliminando número en posición 2 (3)" << endl;
+//    cout << "Elemento eliminado: " << remove<int>(a, len, 2) << endl;
+//    show<int>(a, len);
+//    cout << "------------" << endl;
+//    cout << "Buscando índice del elemento 4" << endl;
+//    cout << find<int, int>(a, len, 4, cmpInt) << endl;
+//    cout << "------------" << endl;
+//    cout << "len: " << len << endl;
+//    cout << "------------" << endl;
+//    cout << "Ingreso ordenado del número 3" << endl;
+//    orderedInsert<int>(a, len, 3, cmpInt);
+//    show<int>(a, len);
+//    cout << "------------" << endl;
+//    cout << "Ordenando array" << endl;
+//    sort<int>(a, len, cmpInt);
+//    cout << "------------" << endl;
+//    show<int>(a, len);
+//    return 0;
+// }
+
+// TAD Array test
 int main()
 {
-   int a[5];
-   int len = 0;
-   cout << "Ingresando primeros cinco números" << endl;
-   add<int>(a, len, 1);
-   add<int>(a, len, 2);
-   add<int>(a, len, 3);
-   add<int>(a, len, 4);
-   add<int>(a, len, 5);
-   show<int>(a, len);
-   cout << "------------" << endl;
-   cout << "Ingresando número 10 en posición 3 (4)" << endl;
-   insert<int>(a, len, 10, 3);
-   show<int>(a, len);
-   cout << "------------" << endl;
-   cout << "Eliminando número en posición 2 (3)" << endl;
-   remove<int>(a, len, 2);
-   show<int>(a, len);
-   cout << "------------" << endl;
-   cout << "Buscando índice del elemento 4" << endl;
-   cout << find<int, int>(a, len, 4, cmpInt) << endl;
-   cout << "------------" << endl;
-   cout << "len: " << len << endl;
-   cout << "------------" << endl;
-   cout << "Ingreso ordenado del número 3" << endl;
-   orderedInsert<int>(a, len, 3, cmpInt);
-   show<int>(a, len);
-   cout << "------------" << endl;
-   cout << "Ordenando array" << endl;
-   sort<int>(a, len, cmpInt);
-   cout << "------------" << endl;
-   show<int>(a, len);
+   Array<int> arr = arraY<int>();
+   arrayAdd(arr, 1);
+   arrayAdd(arr, 2);
+   arrayAdd(arr, 3);
+
+   cout << arr.len << endl;
    return 0;
 }
 
